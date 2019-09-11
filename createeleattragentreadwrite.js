@@ -1,7 +1,7 @@
 export default function createeleattragentreadwrite(ele) {
-    
-    if(!ele instanceof HTMLElement){throw TypeError("invalid HTMLElement!")}
-    
+    if (!ele instanceof HTMLElement) {
+        throw TypeError('invalid HTMLElement!');
+    }
     var temp = Object.create(null);
     return new Proxy(temp, {
         ownKeys(target) {
