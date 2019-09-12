@@ -17,13 +17,17 @@ cnpm install  --save https://github.com/masx200/dom-element-attribute-agent-prox
 # API
 
 ```typescript
-function eleattr(ele: HTMLElement): any;
+function createeleattr(ele: HTMLElement): any;
 ```
 
 # 使用方法
 
 ```js
-import eleattr from "deep-observe-agent-proxy";
+import createeleattr from "deep-observe-agent-proxy";
+var element1 = document.querySelector(
+  "#readme > div.Popover.anim-scale-in.js-tagsearch-popover"
+);
+var attribute1 = createeleattr(element1);
 ```
 
 # 关于 Proxy
