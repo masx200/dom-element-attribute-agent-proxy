@@ -28,6 +28,11 @@ var element1 = document.querySelector(
   "#readme > div.Popover.anim-scale-in.js-tagsearch-popover"
 );
 var attribute1 = createeleattr(element1);
+
+console.log(Reflect.ownKeys(attribute1));
+console.log(attribute1.class);
+attribute1["data-tagsearch-ref"] = "master";
+console.log(Object.entries(attribute1));
 ```
 
 # 关于 Proxy
