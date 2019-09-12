@@ -17,7 +17,13 @@ cnpm install  --save https://github.com/masx200/dom-element-attribute-agent-prox
 # API
 
 ```typescript
-function createeleattragentreadwrite(ele: HTMLElement): any;
+function eleattr(ele: HTMLElement): any;
+```
+
+# 使用方法
+
+```js
+import eleattr from "deep-observe-agent-proxy";
 ```
 
 # 关于 Proxy
