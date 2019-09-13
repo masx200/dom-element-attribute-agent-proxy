@@ -5,7 +5,9 @@ function isstring(a) {
     return typeof a === "string";
 }
 export default function createeleattragentreadwrite(ele) {
-    if (!(ele instanceof HTMLElement || ele instanceof SVGElement)) {
+    if (!(ele instanceof HTMLElement ||
+        ele instanceof SVGElement ||
+        ele instanceof Element)) {
         throw TypeError("invalid HTMLElement!");
     }
     var temp = Object.create(null);
