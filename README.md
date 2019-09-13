@@ -28,7 +28,8 @@ var element1 = document.querySelector(
   "div.Popover.anim-scale-in.js-tagsearch-popover"
 );
 var attribute1 = createeleattr(element1);
-
+attribute1.testarray = [1, "sssssssq"];
+console.log(attribute1.testarray);
 console.log(Reflect.ownKeys(attribute1));
 console.log(attribute1.class);
 attribute1["data-tagsearch-ref"] = "master";
