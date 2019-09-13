@@ -17,7 +17,7 @@ cnpm install  --save https://github.com/masx200/dom-element-attribute-agent-prox
 # API
 
 ```typescript
-function createeleattr(ele: HTMLElement): any;
+function createeleattr(ele: HTMLElement): object;
 ```
 
 # 使用方法

@@ -1,15 +1,22 @@
 {
-  "main": "createeleattragentreadwrite.js",
-  "name": "dom-element-attribute-agent-proxy",
-  "description": "基于proxy封装的对于dom元素的attribute的读写操作库",
-  "version": "1.0.0",
-  "scripts": {},
-  "repository": "git+https://github.com/masx200/dom-element-attribute-agent-proxy.git",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/masx200/dom-element-attribute-agent-proxy/issues"
-  },
-  "homepage": "https://github.com/masx200/dom-element-attribute-agent-proxy#readme"
+    "types": "createeleattragentreadwrite.ts",
+    "main": "createeleattragentreadwrite.js",
+    "name": "dom-element-attribute-agent-proxy",
+    "description": "基于proxy封装的对于dom元素的attribute的读写操作库",
+    "version": "1.0.0",
+    "scripts": {
+        "build": "tsc -b tsconfig.json"
+    },
+    "repository": "git+https://github.com/masx200/dom-element-attribute-agent-proxy.git",
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/masx200/dom-element-attribute-agent-proxy/issues"
+    },
+    "homepage": "https://github.com/masx200/dom-element-attribute-agent-proxy#readme",
+    "devDependencies": {
+        "typescript": "^3.6.3"
+    },
+    "dependencies": {}
 }
