@@ -4,8 +4,10 @@ function isobject(a: any) {
 function isstring(a: any) {
   return typeof a === "string";
 }
-export default function createeleattragentreadwrite(ele: HTMLElement): object {
-  if (!(ele instanceof HTMLElement)) {
+export default function createeleattragentreadwrite(
+  ele: HTMLElement | SVGSVGElement
+): object {
+  if (!(ele instanceof HTMLElement || ele instanceof SVGSVGElement)) {
     throw TypeError("invalid HTMLElement!");
   }
   var temp: object = Object.create(null);
