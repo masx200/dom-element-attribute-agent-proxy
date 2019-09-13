@@ -1,6 +1,9 @@
 function isobject(a) {
     return typeof a === "object" && a !== null;
 }
+function isstring(a) {
+    return typeof a === "string";
+}
 export default function createeleattragentreadwrite(ele) {
     if (!(ele instanceof HTMLElement)) {
         throw TypeError("invalid HTMLElement!");
@@ -12,10 +15,22 @@ export default function createeleattragentreadwrite(ele) {
         },
         get(target, key) {
             var v = ele.getAttribute(String(key));
-            return isobject(v) ? v : JSON.parse(String(v));
+            if (!v) {
+                return;
+            }
+            if (isstring(v)) {
+                try {
+                    return JSON.parse(String(v));
+                }
+                catch (error) {
+                    return v;
+                }
+            }
+            else
+                return;
         },
         set(t, key, v) {
-            ele.setAttribute(String(key), isobject(v) ? JSON.stringify(v) : v);
+            ele.setAttribute(String(key), isobject(v) ? JSON.stringify(v) : String(v));
             return true;
         },
         deleteProperty(t, k) {

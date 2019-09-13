@@ -25,7 +25,7 @@ function createeleattr(ele: HTMLElement): object;
 ```js
 import createeleattr from "dom-element-attribute-agent-proxy";
 var element1 = document.querySelector(
-  "#readme > div.Popover.anim-scale-in.js-tagsearch-popover"
+  "div.Popover.anim-scale-in.js-tagsearch-popover"
 );
 var attribute1 = createeleattr(element1);
 
