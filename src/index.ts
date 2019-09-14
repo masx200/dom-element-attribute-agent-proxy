@@ -132,11 +132,11 @@ export default function createeleattragentreadwrite(
         }
       }
     },
-    setPrototypeOf() {
+  /*  setPrototypeOf() {
       return false;
     },
     getPrototypeOf() {
       return null;
-    }
+    }*/
   });
 }
