@@ -21,6 +21,13 @@ function isstring(a: any) {
 //     return ele;
 //   }
 // }
+
+
+
+function objtostylestring(o){
+
+return Object.entries(o).map(([key,value])=>key+":"+value)
+}
 function asserthtmlelement(ele: any) {
   if (
     !(
