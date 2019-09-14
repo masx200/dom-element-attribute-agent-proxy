@@ -1,4 +1,4 @@
-import createeleattr from "../dist/index.js/index.js.js";
+import createeleattr from "../dist/index.js";
 var element1 = document.querySelector("div");
 var attribute1 = createeleattr(element1);
 
