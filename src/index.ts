@@ -24,7 +24,7 @@ function isstring(a: any) {
 
 
 
-function objtostylestring(o){
+function objtostylestring(o:object):string{
 
 return Object.entries(o).map(([key,value])=>key+":"+value).join(";")
 }
