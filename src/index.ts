@@ -104,21 +104,28 @@ export default function createeleattragentreadwrite(
       return false;
     },
     getOwnPropertyDescriptor(target, key) {
+      const otherdescipter = {
+        enumerable: true,
+        configurable: true,
+        writable: true
+      };
       if (isinputtextortextarea && key === "value") {
         return {
           value: Reflect.get(ele, "value"),
-          enumerable: true,
-          configurable: true,
-          writable: true
+          ...otherdescipter
+          //   enumerable: true,
+          //   configurable: true,
+          //   writable: true
         };
       } else {
         var attr = ele.getAttribute(String(key));
         if (attr) {
           return {
             value: attr,
-            enumerable: true,
-            configurable: true,
-            writable: true
+            ...otherdescipter
+            // enumerable: true,
+            // configurable: true,
+            // writable: true
           };
         } else {
           return;

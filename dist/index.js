@@ -71,12 +71,15 @@ function createeleattragentreadwrite(ele) {
             return false;
         },
         getOwnPropertyDescriptor(target, key) {
+            const otherdescipter = {
+                enumerable: true,
+                configurable: true,
+                writable: true
+            };
             if (isinputtextortextarea && key === "value") {
                 return {
                     value: Reflect.get(ele, "value"),
-                    enumerable: true,
-                    configurable: true,
-                    writable: true
+                    ...otherdescipter
                 };
             }
             else {
@@ -84,9 +87,7 @@ function createeleattragentreadwrite(ele) {
                 if (attr) {
                     return {
                         value: attr,
-                        enumerable: true,
-                        configurable: true,
-                        writable: true
+                        ...otherdescipter
                     };
                 }
                 else {
