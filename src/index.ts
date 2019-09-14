@@ -26,7 +26,7 @@ function isstring(a: any) {
 
 function objtostylestring(o){
 
-return Object.entries(o).map(([key,value])=>key+":"+value)
+return Object.entries(o).map(([key,value])=>key+":"+value).join(";")
 }
 function asserthtmlelement(ele: any) {
   if (
