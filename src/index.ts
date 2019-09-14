@@ -88,7 +88,19 @@ export default function createeleattragentreadwrite(
     set(t, key, v) {
       if (isinputtextortextarea && key === "value") {
         return Reflect.set(ele, "value", v);
-      } else {
+      } 
+else if(key==="style"){
+ele.setAttribute(
+          String(key),
+          objtostylestring(v)
+        );
+return true;
+}
+
+else 
+
+
+{
         ele.setAttribute(
           String(key),
           isobject(v) ? JSON.stringify(v) : String(v)
