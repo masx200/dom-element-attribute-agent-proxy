@@ -36,6 +36,8 @@ attribute1["data-tagsearch-ref"] = "master";
 console.log(Object.entries(attribute1));
 ```
 
+# 更新 : 添加了对于 input 和 textarea 的 value 的读写操作
+
 # 关于 Proxy
 
 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy
