@@ -1,4 +1,5 @@
 const Reflect = window.Reflect;
+const { apply, construct, defineProperty, deleteProperty, get, getOwnPropertyDescriptor, getPrototypeOf, has, isExtensible, ownKeys, preventExtensions, set, setPrototypeOf } = Reflect;
 const valuestring = "value";
 function isobject(a) {
     return typeof a === "object" && a !== null;
@@ -22,19 +23,19 @@ function asserthtmlelement(ele) {
 }
 function createeleattragentreadwrite(ele) {
     asserthtmlelement(ele);
-    const isinputtextortextarea = (ele.tagName === "INPUT" && Reflect.get(ele, "type") === "text") ||
+    const isinputtextortextarea = (ele.tagName === "INPUT" && get(ele, "type") === "text") ||
         ele.tagName === "TEXTAREA";
     var temp = Object.create(null);
     return new Proxy(temp, {
         ownKeys() {
-            const keys = Reflect.ownKeys(ele.attributes).filter(k => !/\d/.test(String(k)[0]));
+            const keys = ownKeys(ele.attributes).filter(k => !/\d/.test(String(k)[0]));
             return isinputtextortextarea
                 ? Array.from(new Set([...keys, valuestring]))
                 : keys;
         },
         get(target, key) {
             if (isinputtextortextarea && key === valuestring) {
-                return Reflect.get(ele, valuestring);
+                return get(ele, valuestring);
             }
             else {
                 var v = ele.getAttribute(String(key));
@@ -55,7 +56,7 @@ function createeleattragentreadwrite(ele) {
         },
         set(t, key, v) {
             if (isinputtextortextarea && key === valuestring) {
-                return Reflect.set(ele, valuestring, v);
+                return set(ele, valuestring, v);
             }
             else if (key === "style") {
                 ele.setAttribute(String(key), isstring(v) ? v : isobject(v) ? objtostylestring(v) : String(v));
@@ -89,7 +90,7 @@ function createeleattragentreadwrite(ele) {
             };
             if (isinputtextortextarea && key === valuestring) {
                 return {
-                    value: Reflect.get(ele, valuestring),
+                    value: get(ele, valuestring),
                     ...otherdescipter
                 };
             }

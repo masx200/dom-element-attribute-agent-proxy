@@ -71,13 +71,13 @@ export default function createeleattragentreadwrite(
   asserthtmlelement(ele);
 
   const isinputtextortextarea =
-    (ele.tagName === "INPUT" && Reflect.get(ele, "type") === "text") ||
+    (ele.tagName === "INPUT" && get(ele, "type") === "text") ||
     ele.tagName === "TEXTAREA";
 
   var temp: object = Object.create(null);
   return new Proxy(temp, {
     ownKeys(/* target */) {
-      const keys = Reflect.ownKeys(ele.attributes).filter(
+      const keys = ownKeys(ele.attributes).filter(
         k => !/\d/.test(String(k)[0])
       );
       return isinputtextortextarea
@@ -86,7 +86,7 @@ export default function createeleattragentreadwrite(
     },
     get(target, key) {
       if (isinputtextortextarea && key === valuestring) {
-        return Reflect.get(ele, valuestring);
+        return get(ele, valuestring);
       } else {
         var v = ele.getAttribute(String(key));
         //   console.log(v);
@@ -104,7 +104,7 @@ export default function createeleattragentreadwrite(
     },
     set(t, key, v) {
       if (isinputtextortextarea && key === valuestring) {
-        return Reflect.set(ele, valuestring, v);
+        return set(ele, valuestring, v);
       } else if (key === "style") {
         ele.setAttribute(
           String(key),
@@ -141,7 +141,7 @@ export default function createeleattragentreadwrite(
       };
       if (isinputtextortextarea && key === valuestring) {
         return {
-          value: Reflect.get(ele, valuestring),
+          value: get(ele, valuestring),
           ...otherdescipter
           //   enumerable: true,
           //   configurable: true,
