@@ -38,5 +38,10 @@ console.log(Reflect.ownKeys(inputattribute));
 console.log(Object.entries(inputattribute));
 document.body.appendChild(inputelement);
 inputattribute.style = { display: "block", width: "500px" };
+
+inputattribute.qqqqqqqqqqqqqqqqqqqqq = {
+  1: "wwwwwwwwwwww",
+  bbbbbbb: "wwwxxxxxxxxx"
+};
 console.log(inputelement);
 console.log(Object.entries(inputattribute));
