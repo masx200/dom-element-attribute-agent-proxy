@@ -1,3 +1,4 @@
+const Reflect = window.Reflect;
 const valuestring = "value";
 function isobject(a: any) {
   return typeof a === "object" && a !== null;
