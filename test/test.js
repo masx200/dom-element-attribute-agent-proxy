@@ -12,6 +12,7 @@ attribute1.testarray = [1, "sssssssq"];
 console.log(attribute1.testarray);
 console.log(Reflect.ownKeys(attribute1));
 console.log(Object.entries(attribute1));
+console.log(element1);
 ///////////////////////////////////////////
 var textareaelement = document.createElement("textarea");
 var textareaattribute = createeleattr(textareaelement);
@@ -22,8 +23,12 @@ textareaattribute.value = "wwwwwwwwwww";
 
 console.log(textareaattribute.value);
 console.log(Reflect.ownKeys(textareaattribute));
-console.log(Object.entries(textareaattribute));
+
 document.body.appendChild(textareaelement);
+
+textareaattribute.style = "display:block;width:500px;height:600px";
+console.log(textareaelement);
+console.log(Object.entries(textareaattribute));
 /////////////////////////////////////////////////
 var inputelement = document.createElement("input");
 inputelement.type = "text";

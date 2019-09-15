@@ -57,7 +57,7 @@ function createeleattragentreadwrite(ele) {
                 return Reflect.set(ele, valuestring, v);
             }
             else if (key === "style") {
-                ele.setAttribute(String(key), objtostylestring(v));
+                ele.setAttribute(String(key), isstring(v) ? v : isobject(v) ? objtostylestring(v) : String(v));
                 return true;
             }
             else {
