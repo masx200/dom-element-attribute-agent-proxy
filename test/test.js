@@ -37,3 +37,6 @@ console.log(inputattribute.value);
 console.log(Reflect.ownKeys(inputattribute));
 console.log(Object.entries(inputattribute));
 document.body.appendChild(inputelement);
+inputattribute.style = { display: "block", width: "500px" };
+console.log(inputelement);
+console.log(Object.entries(inputattribute));

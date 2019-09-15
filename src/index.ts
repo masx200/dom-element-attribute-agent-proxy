@@ -1,3 +1,4 @@
+const valuestring = "value";
 function isobject(a: any) {
   return typeof a === "object" && a !== null;
 }
@@ -22,11 +23,10 @@ function isstring(a: any) {
 //   }
 // }
 
-
-
-function objtostylestring(o:object):string{
-
-return Object.entries(o).map(([key,value])=>key+":"+value).join(";")
+function objtostylestring(o: object): string {
+  return Object.entries(o)
+    .map(([key, value]) => key + ":" + value)
+    .join(";");
 }
 function asserthtmlelement(ele: any) {
   if (
@@ -64,12 +64,12 @@ export default function createeleattragentreadwrite(
         k => !/\d/.test(String(k)[0])
       );
       return isinputtextortextarea
-        ? Array.from(new Set([...keys, "value"]))
+        ? Array.from(new Set([...keys, valuestring]))
         : keys;
     },
     get(target, key) {
-      if (isinputtextortextarea && key === "value") {
-        return Reflect.get(ele, "value");
+      if (isinputtextortextarea && key === valuestring) {
+        return Reflect.get(ele, valuestring);
       } else {
         var v = ele.getAttribute(String(key));
         //   console.log(v);
@@ -86,21 +86,12 @@ export default function createeleattragentreadwrite(
       }
     },
     set(t, key, v) {
-      if (isinputtextortextarea && key === "value") {
-        return Reflect.set(ele, "value", v);
-      } 
-else if(key==="style"){
-ele.setAttribute(
-          String(key),
-          objtostylestring(v)
-        );
-return true;
-}
-
-else 
-
-
-{
+      if (isinputtextortextarea && key === valuestring) {
+        return Reflect.set(ele, valuestring, v);
+      } else if (key === "style") {
+        ele.setAttribute(String(key), objtostylestring(v));
+        return true;
+      } else {
         ele.setAttribute(
           String(key),
           isobject(v) ? JSON.stringify(v) : String(v)
@@ -113,7 +104,7 @@ else
       return true;
     },
     has(target, key) {
-      if (isinputtextortextarea && key === "value") {
+      if (isinputtextortextarea && key === valuestring) {
         return true;
       } else {
         return ele.hasAttribute(String(key));
@@ -128,9 +119,9 @@ else
         configurable: true,
         writable: true
       };
-      if (isinputtextortextarea && key === "value") {
+      if (isinputtextortextarea && key === valuestring) {
         return {
-          value: Reflect.get(ele, "value"),
+          value: Reflect.get(ele, valuestring),
           ...otherdescipter
           //   enumerable: true,
           //   configurable: true,
@@ -150,8 +141,8 @@ else
           return;
         }
       }
-    },
-  /*  setPrototypeOf() {
+    }
+    /*  setPrototypeOf() {
       return false;
     },
     getPrototypeOf() {
