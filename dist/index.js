@@ -1,5 +1,5 @@
 const Reflect = window.Reflect;
-const { apply, construct, defineProperty, deleteProperty, get, getOwnPropertyDescriptor, getPrototypeOf, has, isExtensible, ownKeys, preventExtensions, set, setPrototypeOf } = Reflect;
+const { get, ownKeys, set } = Reflect;
 const valuestring = "value";
 function isobject(a) {
     return typeof a === "object" && a !== null;
