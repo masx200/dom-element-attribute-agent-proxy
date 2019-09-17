@@ -32,11 +32,9 @@ function objtostylestring(o: object): string {
 }
 function asserthtmlelement(ele: any) {
   if (
-    !(
- //     ele instanceof HTMLElement ||
-//      ele instanceof SVGElement ||
-      ele instanceof Element
-    )
+    !//     ele instanceof HTMLElement ||
+    //      ele instanceof SVGElement ||
+    (ele instanceof Element)
   ) {
     throw TypeError("invalid HTMLElement!");
   } else return true;
@@ -155,51 +153,29 @@ export default function createeleattragentreadwrite(
     }*/
   });
 }
-function attributesownkeys(ele){
-
-return ownKeys(ele.attributes).filter(
-        k => !/\d/.test(String(k)[0])
-      );
-
+function attributesownkeys(ele) {
+  return ownKeys(ele.attributes).filter(k => !/\d/.test(String(k)[0]));
 }
-function getattribute(ele,key){
-return ele.getAttribute(key)
+function getattribute(ele, key) {
+  return ele.getAttribute(key);
 }
-function geteletagname(ele){
-
-return ele.tagName.toLowerCase()
-
+function geteletagname(ele) {
+  return ele.tagName.toLowerCase();
 }
-function setattribute(ele,key,value){
-return ele.setAttribute(key,value)
+function setattribute(ele, key, value) {
+  return ele.setAttribute(key, value);
 }
-function
-removeAttribute(ele,key){
-return ele.removeAttribute(key)
-
-
-
-
-
+function removeAttribute(ele, key) {
+  return ele.removeAttribute(key);
 }
 
-
-
-
-function hasAttribute(key)
-{
-return ele.hasAttribute(key)
-
-
+function hasAttribute(ele, key) {
+  return ele.hasAttribute(key);
 }
 
-
-
-function isinputtextortextarea (ele){
-
-return (ele.tagName === "INPUT" && get(ele, "type") === "text") ||
-    ele.tagName === "TEXTAREA";
-
-
+function isinputtextortextarea(ele) {
+  return (
+    (ele.tagName === "INPUT" && get(ele, "type") === "text") ||
+    ele.tagName === "TEXTAREA"
+  );
 }
-    

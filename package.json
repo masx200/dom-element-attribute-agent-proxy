@@ -1,8 +1,7 @@
 {
-
- 
-"publishConfig": { "registry": "https://npm.pkg.github.com/@masx200" },
-
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com/@masx200"
+    },
     "types": "src/index.ts",
     "main": "dist/index.js",
     "module": "dist/index.js",
