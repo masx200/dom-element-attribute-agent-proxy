@@ -13,9 +13,7 @@ function objtostylestring(o) {
         .join(";");
 }
 function asserthtmlelement(ele) {
-    if (!(ele instanceof HTMLElement ||
-        ele instanceof SVGElement ||
-        ele instanceof Element)) {
+    if (!(ele instanceof Element)) {
         throw TypeError("invalid HTMLElement!");
     }
     else
@@ -23,22 +21,21 @@ function asserthtmlelement(ele) {
 }
 function createeleattragentreadwrite(ele) {
     asserthtmlelement(ele);
-    const isinputtextortextarea = (ele.tagName === "INPUT" && get(ele, "type") === "text") ||
-        ele.tagName === "TEXTAREA";
+    const isinputtextortextareaflag = isinputtextortextarea(ele);
     var temp = Object.create(null);
     return new Proxy(temp, {
         ownKeys() {
-            const keys = ownKeys(ele.attributes).filter(k => !/\d/.test(String(k)[0]));
-            return isinputtextortextarea
+            const keys = attributesownkeys(ele);
+            return isinputtextortextareaflag
                 ? Array.from(new Set([...keys, valuestring]))
                 : keys;
         },
         get(target, key) {
-            if (isinputtextortextarea && key === valuestring) {
+            if (isinputtextortextareaflag && key === valuestring) {
                 return get(ele, valuestring);
             }
             else {
-                var v = ele.getAttribute(String(key));
+                var v = getattribute(ele, String(key));
                 if (!v) {
                     return;
                 }
@@ -55,28 +52,28 @@ function createeleattragentreadwrite(ele) {
             }
         },
         set(t, key, v) {
-            if (isinputtextortextarea && key === valuestring) {
+            if (isinputtextortextareaflag && key === valuestring) {
                 return set(ele, valuestring, v);
             }
             else if (key === "style") {
-                ele.setAttribute(String(key), isstring(v) ? v : isobject(v) ? objtostylestring(v) : String(v));
+                setattribute(ele, String(key), isstring(v) ? v : isobject(v) ? objtostylestring(v) : String(v));
                 return true;
             }
             else {
-                ele.setAttribute(String(key), isobject(v) ? JSON.stringify(v) : String(v));
+                setattribute(ele, String(key), isobject(v) ? JSON.stringify(v) : String(v));
                 return true;
             }
         },
         deleteProperty(t, k) {
-            ele.removeAttribute(String(k));
+            removeAttribute(ele, String(k));
             return true;
         },
         has(target, key) {
-            if (isinputtextortextarea && key === valuestring) {
+            if (isinputtextortextareaflag && key === valuestring) {
                 return true;
             }
             else {
-                return ele.hasAttribute(String(key));
+                return hasAttribute(ele, String(key));
             }
         },
         defineProperty() {
@@ -88,14 +85,14 @@ function createeleattragentreadwrite(ele) {
                 configurable: true,
                 writable: true
             };
-            if (isinputtextortextarea && key === valuestring) {
+            if (isinputtextortextareaflag && key === valuestring) {
                 return {
                     value: get(ele, valuestring),
                     ...otherdescipter
                 };
             }
             else {
-                var attr = ele.getAttribute(String(key));
+                var attr = getattribute(ele, String(key));
                 if (attr) {
                     return {
                         value: attr,
@@ -108,6 +105,29 @@ function createeleattragentreadwrite(ele) {
             }
         }
     });
+}
+function attributesownkeys(ele) {
+    return ownKeys(ele.attributes).filter(k => !/\d/.test(String(k)[0]));
+}
+function getattribute(ele, key) {
+    return ele.getAttribute(key);
+}
+function geteletagname(ele) {
+    return ele.tagName.toLowerCase();
+}
+function setattribute(ele, key, value) {
+    return ele.setAttribute(key, value);
+}
+function removeAttribute(ele, key) {
+    return ele.removeAttribute(key);
+}
+function hasAttribute(ele, key) {
+    return ele.hasAttribute(key);
+}
+function isinputtextortextarea(ele) {
+    const tagname = geteletagname(ele);
+    return ((tagname === "input" && get(ele, "type") === "text") ||
+        tagname === "textarea");
 }
 
 export default createeleattragentreadwrite;
