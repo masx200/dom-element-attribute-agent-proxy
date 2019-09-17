@@ -33,8 +33,8 @@ function objtostylestring(o: object): string {
 function asserthtmlelement(ele: any) {
   if (
     !(
-      ele instanceof HTMLElement ||
-      ele instanceof SVGElement ||
+ //     ele instanceof HTMLElement ||
+//      ele instanceof SVGElement ||
       ele instanceof Element
     )
   ) {
@@ -154,4 +154,41 @@ export default function createeleattragentreadwrite(
       return null;
     }*/
   });
+}
+function attributesownkeys(ele){
+
+return ownKeys(ele.attributes).filter(
+        k => !/\d/.test(String(k)[0])
+      );
+
+}
+function getattribute(ele,key){
+return ele.getAttribute(key)
+}
+function geteletagname(ele){
+
+return ele.tagName.toLowerCase()
+
+}
+function setattribute(ele,key,value){
+return ele.setAttribute(key,value)
+}
+function
+removeAttribute(ele,key){
+return ele.removeAttribute(key)
+
+
+
+
+
+}
+
+
+
+
+function hasAttribute(key)
+{
+return ele.hasAttribute(key)
+
+
 }
