@@ -192,3 +192,14 @@ return ele.hasAttribute(key)
 
 
 }
+
+
+
+function isinputtextortextarea (ele){
+
+return (ele.tagName === "INPUT" && get(ele, "type") === "text") ||
+    ele.tagName === "TEXTAREA";
+
+
+}
+    
