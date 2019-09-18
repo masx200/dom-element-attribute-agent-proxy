@@ -110,7 +110,7 @@ return true
         return true;
       } else {
 
-//如果设置为true,则
+//如果设置为true,则设置属性空字符串
 
 if(v===true){
 v=""
@@ -161,9 +161,13 @@ v=""
           //   writable: true
         };
       } else {
-        var attr = getattribute(ele, String(key));
+        let attr = getattribute(ele, String(key));
         // ele.getAttribute(String(key));
-        if (attr) {
+        
+//如果属性空字符串则返回true
+
+if(attr===""){attr=true}
+if (attr) {
           return {
             value: attr,
             ...otherdescipter
