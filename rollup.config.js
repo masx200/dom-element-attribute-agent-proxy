@@ -29,7 +29,25 @@ export default [
         sourcemap: true
       }
     ],
-    plugins: [json(), resolve(), commonjs(), typescript()]
+    plugins: [
+      json(),
+      resolve(),
+      commonjs(),
+      typescript(),
+      terser({
+        compress: false,
+
+        /*     {
+    
+    drop_console: true,
+    
+    } */ mangle: false,
+        output: {
+          comments: !1,
+          beautify: true
+        }
+      })
+    ]
   },
   {
     input: "./dist/index.js",

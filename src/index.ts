@@ -79,11 +79,11 @@ export default function createeleattragentreadwrite(
           return;
         }
 
-//如果属性空字符串则返回true
+        //如果属性空字符串则返回true
 
-if(v===""){
-return true
-}
+        if (v === "") {
+          return true;
+        }
 
         if (isstring(v)) {
           try {
@@ -109,13 +109,11 @@ return true
         ); */
         return true;
       } else {
+        //如果设置为true,则设置属性空字符串
 
-//如果设置为true,则设置属性空字符串
-
-if(v===true){
-v=""
-
-}
+        if (v === true) {
+          v = "";
+        }
 
         setattribute(
           ele,
@@ -161,15 +159,17 @@ v=""
           //   writable: true
         };
       } else {
-        let attr = getattribute(ele, String(key));
+        const attr = getattribute(ele, String(key));
         // ele.getAttribute(String(key));
-        
-//如果属性空字符串则返回true
 
-if(attr===""){attr=true}
-if (attr) {
+        //如果属性空字符串则返回true
+        let outvalue;
+        if (attr === "") {
+          outvalue = true;
+        }
+        if (outvalue) {
           return {
-            value: attr,
+            value: outvalue,
             ...otherdescipter
             // enumerable: true,
             // configurable: true,
