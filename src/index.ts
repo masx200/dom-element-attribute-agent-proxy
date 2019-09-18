@@ -72,12 +72,19 @@ export default function createeleattragentreadwrite(
       if (isinputtextortextareaflag && key === valuestring) {
         return get(ele, valuestring);
       } else {
-        var v = getattribute(ele, String(key));
+        const v = getattribute(ele, String(key));
         // ele.getAttribute(String(key));
         //   console.log(v);
         if (!v) {
           return;
         }
+
+//如果属性空字符串则返回true
+
+if(v===""){
+return true
+}
+
         if (isstring(v)) {
           try {
             return JSON.parse(String(v)); // v
@@ -102,6 +109,14 @@ export default function createeleattragentreadwrite(
         ); */
         return true;
       } else {
+
+//如果设置为true,则
+
+if(v===true){
+v=""
+
+}
+
         setattribute(
           ele,
           String(key),
