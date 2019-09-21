@@ -75,15 +75,15 @@ export default function createeleattragentreadwrite(
         const v = getattribute(ele, String(key));
         // ele.getAttribute(String(key));
         //   console.log(v);
-        if (!v) {
+        if (v === "") {
+          return true;
+        }
+        /* 修复属性空字符串返回不是true的bug问题 */
+        if (v === null) {
           return;
         }
 
         //如果属性空字符串则返回true
-
-        if (v === "") {
-          return true;
-        }
 
         if (isstring(v)) {
           try {

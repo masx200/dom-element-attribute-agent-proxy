@@ -36,11 +36,11 @@ function createeleattragentreadwrite(ele) {
                 return get(ele, valuestring);
             } else {
                 const v = getattribute(ele, String(key));
-                if (!v) {
-                    return;
-                }
                 if (v === "") {
                     return true;
+                }
+                if (v === null) {
+                    return;
                 }
                 if (isstring(v)) {
                     try {
