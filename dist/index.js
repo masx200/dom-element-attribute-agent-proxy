@@ -26,7 +26,7 @@ function createeleattragentreadwrite(ele) {
     asserthtmlelement(ele);
     const isinputtextortextareaflag = isinputtextortextarea(ele);
     var temp = Object.create(null);
-    return new Proxy(temp, {
+    const outputattrs = new Proxy(temp, {
         ownKeys() {
             const keys = attributesownkeys(ele);
             return isinputtextortextareaflag ? Array.from(new Set([ ...keys, valuestring ])) : keys;
@@ -85,28 +85,18 @@ function createeleattragentreadwrite(ele) {
                 configurable: true,
                 writable: true
             };
-            if (isinputtextortextareaflag && key === valuestring) {
+            const myvalue = get(outputattrs, key);
+            if (typeof myvalue !== "undefined") {
                 return {
-                    value: get(ele, valuestring),
+                    value: myvalue,
                     ...otherdescipter
                 };
             } else {
-                const attr = getattribute(ele, String(key));
-                let outvalue;
-                if (attr === "") {
-                    outvalue = true;
-                }
-                if (outvalue) {
-                    return {
-                        value: outvalue,
-                        ...otherdescipter
-                    };
-                } else {
-                    return;
-                }
+                return;
             }
         }
     });
+    return outputattrs;
 }
 
 function attributesownkeys(ele) {

@@ -58,7 +58,8 @@ export default function createeleattragentreadwrite(
   //   ele.tagName === "TEXTAREA";
   const isinputtextortextareaflag = isinputtextortextarea(ele);
   var temp: object = Object.create(null);
-  return new Proxy(temp, {
+
+  const outputattrs = new Proxy(temp, {
     ownKeys(/* target */) {
       const keys = attributesownkeys(ele);
       // ownKeys(ele.attributes).filter(
@@ -150,7 +151,17 @@ export default function createeleattragentreadwrite(
         configurable: true,
         writable: true
       };
-      if (isinputtextortextareaflag && key === valuestring) {
+      const myvalue: any = get(outputattrs, key);
+      if (typeof myvalue !== "undefined") {
+        return {
+          value: myvalue,
+          ...otherdescipter
+        };
+      } else {
+        return;
+      }
+
+      /*  if (isinputtextortextareaflag && key === valuestring) {
         return {
           value: get(ele, valuestring),
           ...otherdescipter
@@ -178,7 +189,7 @@ export default function createeleattragentreadwrite(
         } else {
           return;
         }
-      }
+      } */
     }
     /*  setPrototypeOf() {
       return false;
@@ -187,6 +198,7 @@ export default function createeleattragentreadwrite(
       return null;
     }*/
   });
+  return outputattrs;
 }
 function attributesownkeys(
   ele: HTMLElement | Element | SVGElement | HTMLInputElement

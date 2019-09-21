@@ -26,7 +26,7 @@ console.log(Reflect.ownKeys(textareaattribute));
 
 document.body.appendChild(textareaelement);
 
-textareaattribute.style = "display:block;width:500px;height:600px";
+textareaattribute.style = "display:block;width:500px;height:100px";
 console.log(textareaelement);
 console.log(Object.entries(textareaattribute));
 /////////////////////////////////////////////////
@@ -50,3 +50,6 @@ inputattribute.qqqqqqqqqqqqqqqqqqqqq = {
 };
 console.log(inputelement);
 console.log(Object.entries(inputattribute));
+inputattribute.test1111111111 = true;
+inputattribute.test22222222222 = false;
+console.log(inputattribute);
