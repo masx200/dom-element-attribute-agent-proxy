@@ -22,7 +22,7 @@ function createeleattr(ele: HTMLElement): object;
 
 # 使用方法
 
-```js
+```javascript
 import createeleattr from "dom-element-attribute-agent-proxy";
 var element1 = document.querySelector(
   "div.Popover.anim-scale-in.js-tagsearch-popover"
@@ -34,11 +34,12 @@ console.log(Reflect.ownKeys(attribute1));
 console.log(attribute1.class);
 attribute1["data-tagsearch-ref"] = "master";
 console.log(Object.entries(attribute1));
+attribute1.class = new Set(["wwwwwwwww1", "sssssssq"]);
 ```
 
 # 更新 : 添加了对于 input 和 textarea 的 value 的读写操作,和 style 属性的对象写法
 
-# 更新 :添加了 class 属性对于 Array 和 Set 的支持
+# 更新 :添加了 class 属性对于 Array 和 Set 的支持,也增加了其他属性对于 Set 转 Array 的支持
 
 # 关于 Proxy
 
