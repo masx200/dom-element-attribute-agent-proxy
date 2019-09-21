@@ -127,21 +127,24 @@ export default function createeleattragentreadwrite(
         //
       } else {
         //如果设置为true,则设置属性空字符串
+        if (isSet(v)) {
+          setattribute(ele, String(key), JSON.stringify([...v]));
+        } else {
+          if (v === true) {
+            v = "";
+          }
 
-        if (v === true) {
-          v = "";
-        }
-
-        setattribute(
-          ele,
-          String(key),
-          isobject(v) ? JSON.stringify(v) : String(v)
-        );
-        /*  ele.setAttribute(
+          setattribute(
+            ele,
+            String(key),
+            isobject(v) ? JSON.stringify(v) : String(v)
+          );
+          /*  ele.setAttribute(
           String(key),
           isobject(v) ? JSON.stringify(v) : String(v)
         ); */
-        return true;
+          return true;
+        }
       }
       return true;
     },

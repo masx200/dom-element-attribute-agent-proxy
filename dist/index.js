@@ -74,11 +74,15 @@ function createeleattragentreadwrite(ele) {
                     setattribute(ele, String(key), JSON.stringify(v));
                 }
             } else {
-                if (v === true) {
-                    v = "";
+                if (isSet(v)) {
+                    setattribute(ele, String(key), JSON.stringify([ ...v ]));
+                } else {
+                    if (v === true) {
+                        v = "";
+                    }
+                    setattribute(ele, String(key), isobject(v) ? JSON.stringify(v) : String(v));
+                    return true;
                 }
-                setattribute(ele, String(key), isobject(v) ? JSON.stringify(v) : String(v));
-                return true;
             }
             return true;
         },

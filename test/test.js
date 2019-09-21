@@ -57,4 +57,6 @@ console.log(inputattribute);
 textareaattribute.class = new Set(["aaaaaaa", "rrrrrrrrrrrr"]);
 
 inputattribute.class = ["bbbbbbb", "aaaaaaa", "rrrrrrrrrrrr"];
-console.log(textareaattribute, inputattribute);
+
+attribute1.mmmmrrrrrrr = new Set(["attribute1", "mmmmrrrrrrr"]);
+console.log([textareaattribute, inputattribute, attribute1]);
