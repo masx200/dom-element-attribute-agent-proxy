@@ -12,6 +12,14 @@ function isstring(a) {
     return typeof a === "string";
 }
 
+function isArray(a) {
+    return Array.isArray(a);
+}
+
+function isSet(a) {
+    return a instanceof Set;
+}
+
 function objtostylestring(o) {
     return Object.entries(o).map(([key, value]) => key + ":" + value).join(";");
 }
@@ -57,6 +65,14 @@ function createeleattragentreadwrite(ele) {
             } else if (key === "style") {
                 setattribute(ele, String(key), isstring(v) ? v : isobject(v) ? objtostylestring(v) : String(v));
                 return true;
+            } else if (key === "class" && isobject(v)) {
+                if (isArray(v)) {
+                    setattribute(ele, String(key), v.join(" "));
+                } else if (isSet(v)) {
+                    setattribute(ele, String(key), [ ...v ].join(" "));
+                } else {
+                    setattribute(ele, String(key), JSON.stringify(v));
+                }
             } else {
                 if (v === true) {
                     v = "";
@@ -64,6 +80,7 @@ function createeleattragentreadwrite(ele) {
                 setattribute(ele, String(key), isobject(v) ? JSON.stringify(v) : String(v));
                 return true;
             }
+            return true;
         },
         deleteProperty(t, k) {
             removeAttribute(ele, String(k));

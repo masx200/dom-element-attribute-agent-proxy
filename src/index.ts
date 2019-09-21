@@ -1,11 +1,18 @@
 const Reflect = window.Reflect;
 const { get, set } = Reflect;
 const valuestring = "value";
-function isobject(a: any) {
+function isobject(a: any): a is object {
   return typeof a === "object" && a !== null;
 }
-function isstring(a: any) {
+function isstring(a: any): a is string {
   return typeof a === "string";
+}
+function isArray(a: any): a is Array<any> {
+  return Array.isArray(a);
+}
+
+function isSet(a: any): a is Set<any> {
+  return a instanceof Set;
 }
 
 // function inputandtextareaagent(ele) {
@@ -109,6 +116,15 @@ export default function createeleattragentreadwrite(
           isstring(v) ? v : isobject(v) ? objtostylestring(v) : String(v)
         ); */
         return true;
+      } else if (key === "class" && isobject(v)) {
+        if (isArray(v)) {
+          setattribute(ele, String(key), v.join(" "));
+        } else if (isSet(v)) {
+          setattribute(ele, String(key), [...v].join(" "));
+        } else {
+          setattribute(ele, String(key), JSON.stringify(v));
+        }
+        //
       } else {
         //如果设置为true,则设置属性空字符串
 
@@ -127,6 +143,7 @@ export default function createeleattragentreadwrite(
         ); */
         return true;
       }
+      return true;
     },
     deleteProperty(t, k) {
       removeAttribute(ele, String(k));

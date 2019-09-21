@@ -53,3 +53,8 @@ console.log(Object.entries(inputattribute));
 inputattribute.test1111111111 = true;
 inputattribute.test22222222222 = false;
 console.log(inputattribute);
+
+textareaattribute.class = new Set(["aaaaaaa", "rrrrrrrrrrrr"]);
+
+inputattribute.class = ["bbbbbbb", "aaaaaaa", "rrrrrrrrrrrr"];
+console.log(textareaattribute, inputattribute);
