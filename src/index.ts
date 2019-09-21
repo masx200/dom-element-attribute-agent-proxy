@@ -1,5 +1,5 @@
 const Reflect = window.Reflect;
-const { get, ownKeys, set } = Reflect;
+const { get, set } = Reflect;
 const valuestring = "value";
 function isobject(a: any) {
   return typeof a === "object" && a !== null;
@@ -190,8 +190,9 @@ export default function createeleattragentreadwrite(
 }
 function attributesownkeys(
   ele: HTMLElement | Element | SVGElement | HTMLInputElement
-) {
-  return ownKeys(ele.attributes).filter(k => !/\d/.test(String(k)[0]));
+): string[] {
+  //   return ownKeys(ele.attributes).filter(k => !/\d/.test(String(k)[0]));
+  return ele.getAttributeNames();
 }
 function getattribute(
   ele: HTMLElement | Element | SVGElement | HTMLInputElement,

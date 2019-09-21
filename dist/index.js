@@ -1,6 +1,6 @@
 const Reflect = window.Reflect;
 
-const {get: get, ownKeys: ownKeys, set: set} = Reflect;
+const {get: get, set: set} = Reflect;
 
 const valuestring = "value";
 
@@ -110,7 +110,7 @@ function createeleattragentreadwrite(ele) {
 }
 
 function attributesownkeys(ele) {
-    return ownKeys(ele.attributes).filter(k => !/\d/.test(String(k)[0]));
+    return ele.getAttributeNames();
 }
 
 function getattribute(ele, key) {
