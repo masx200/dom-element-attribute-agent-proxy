@@ -103,6 +103,12 @@ export default function createeleattragentreadwrite(
       }
     },
     set(t, key, v) {
+
+//不允许设置属性为函数
+if("function"===typeof v){
+console.error(v)
+throw TypeError("不允许设置属性为函数")
+}
       if (isinputtextortextareaflag && key === valuestring) {
         return set(ele, valuestring, v);
       } else if (key === "style") {
