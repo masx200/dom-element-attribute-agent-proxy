@@ -1,3 +1,5 @@
+const String = window.String;
+
 const Reflect = window.Reflect;
 
 const {get: get, set: set} = Reflect;
@@ -60,6 +62,10 @@ function createeleattragentreadwrite(ele) {
             }
         },
         set(t, key, v) {
+            if ("function" === typeof v) {
+                console.error(v);
+                throw TypeError("不允许设置属性为函数");
+            }
             if (isinputtextortextareaflag && key === valuestring) {
                 return set(ele, valuestring, v);
             } else if (key === "style") {
@@ -115,6 +121,9 @@ function createeleattragentreadwrite(ele) {
             } else {
                 return;
             }
+        },
+        setPrototypeOf() {
+            return false;
         }
     });
     return outputattrs;

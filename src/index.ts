@@ -1,3 +1,4 @@
+const String = window.String;
 const Reflect = window.Reflect;
 const { get, set } = Reflect;
 const valuestring = "value";
@@ -103,12 +104,11 @@ export default function createeleattragentreadwrite(
       }
     },
     set(t, key, v) {
-
-//不允许设置属性为函数
-if("function"===typeof v){
-console.error(v)
-throw TypeError("不允许设置属性为函数")
-}
+      //不允许设置属性为函数
+      if ("function" === typeof v) {
+        console.error(v);
+        throw TypeError("不允许设置属性为函数");
+      }
       if (isinputtextortextareaflag && key === valuestring) {
         return set(ele, valuestring, v);
       } else if (key === "style") {
@@ -216,6 +216,9 @@ throw TypeError("不允许设置属性为函数")
           return;
         }
       } */
+    },
+    setPrototypeOf() {
+      return false;
     }
     /*  setPrototypeOf() {
       return false;
