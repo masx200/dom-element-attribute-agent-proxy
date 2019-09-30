@@ -35,13 +35,17 @@ function asserthtmlelement(ele) {
 function createeleattragentreadwrite(ele) {
     asserthtmlelement(ele);
     const isinputtextortextareaflag = isinputtextortextarea(ele);
+    const isinputcheckbox = "input" === geteletagname(ele) && get(ele, "type") === "checkbox";
     var temp = Object.create(null);
     const outputattrs = new Proxy(temp, {
         ownKeys() {
             const keys = attributesownkeys(ele);
-            return isinputtextortextareaflag ? Array.from(new Set([ ...keys, valuestring ])) : keys;
+            return Array.from(new Set([ isinputcheckbox ? "checked" : undefined, isinputtextortextareaflag ? Array.from(new Set([ ...keys, valuestring ])) : keys ].flat(Infinity).filter(a => !!a)));
         },
         get(target, key) {
+            if (isinputcheckbox && key === "checked") {
+                return get(ele, "checked");
+            }
             if (isinputtextortextareaflag && key === valuestring) {
                 return get(ele, valuestring);
             } else {
