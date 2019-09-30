@@ -64,7 +64,7 @@ function createeleattragentreadwrite(ele) {
         set(t, key, v) {
             if ("function" === typeof v) {
                 console.error(v);
-                throw TypeError("不允许设置属性为函数");
+                throw TypeError("Setting properties as functions is not allowed");
             }
             if (geteletagname(ele) === "input" && key === "checked") {
                 set(ele, key, v);

@@ -107,7 +107,9 @@ export default function createeleattragentreadwrite(
       //不允许设置属性为函数
       if ("function" === typeof v) {
         console.error(v);
-        throw TypeError("不允许设置属性为函数");
+        throw TypeError("Setting properties as functions is not allowed");
+
+        // throw TypeError("不允许设置属性为函数");
       }
       /* 对于input的checkbox设置 checked属性时,不添加属性,直接修改checked属性*/
       if (geteletagname(ele) === "input" && key === "checked") {
