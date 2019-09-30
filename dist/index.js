@@ -66,6 +66,10 @@ function createeleattragentreadwrite(ele) {
                 console.error(v);
                 throw TypeError("不允许设置属性为函数");
             }
+            if (geteletagname(ele) === "input" && key === "checked") {
+                set(ele, key, v);
+                return true;
+            }
             if (isinputtextortextareaflag && key === valuestring) {
                 return set(ele, valuestring, v);
             } else if (key === "style") {

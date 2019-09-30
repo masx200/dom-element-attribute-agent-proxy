@@ -109,6 +109,12 @@ export default function createeleattragentreadwrite(
         console.error(v);
         throw TypeError("不允许设置属性为函数");
       }
+      /* 对于input的checkbox设置 checked属性时,不添加属性,直接修改checked属性*/
+      if (geteletagname(ele) === "input" && key === "checked") {
+        set(ele, key, v);
+        return true;
+      }
+
       if (isinputtextortextareaflag && key === valuestring) {
         return set(ele, valuestring, v);
       } else if (key === "style") {
