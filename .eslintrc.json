@@ -39,7 +39,8 @@
     "no-empty": 0,
     "@typescript-eslint/no-use-before-define": 0,
     "no-useless-escape": 0,
-    "no-var": 0
+    "no-var": 0,
+    "prefer-const": 0
   }
   //  "autoFixOnSave": true
 }

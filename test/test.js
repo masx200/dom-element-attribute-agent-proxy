@@ -1,62 +1,76 @@
 import createeleattr from "../dist/index.js";
-var element1 = document.querySelector("div");
-var attribute1 = createeleattr(element1);
+{
+  const element1 = document.querySelector("div");
+  const attribute1 = createeleattr(element1);
 
-console.log(attribute1.class);
-attribute1["data-tagsearch-ref"] = "master";
+  console.log(attribute1.class);
+  attribute1["data-tagsearch-ref"] = "master";
 
-attribute1.class = "sssssssq";
-console.log(attribute1.class);
+  attribute1.class = "sssssssq";
+  console.log(attribute1.class);
 
-attribute1.testarray = [1, "sssssssq"];
-console.log(attribute1.testarray);
-console.log(Reflect.ownKeys(attribute1));
-console.log(Object.entries(attribute1));
-console.log(element1);
+  attribute1.testarray = [1, "sssssssq"];
+  console.log(attribute1.testarray);
+  console.log(Reflect.ownKeys(attribute1));
+  console.log(Object.entries(attribute1));
+  console.log(element1);
+  attribute1.mmmmrrrrrrr = new Set(["attribute1", "mmmmrrrrrrr"]);
+  console.log([/* textareaattribute, inputattribute, */ attribute1]);
+}
 ///////////////////////////////////////////
-var textareaelement = document.createElement("textarea");
-var textareaattribute = createeleattr(textareaelement);
+{
+  const textareaelement = document.createElement("textarea");
+  const textareaattribute = createeleattr(textareaelement);
 
-console.log(textareaattribute.value);
+  console.log(textareaattribute.value);
 
-textareaattribute.value = "wwwwwwwwwww";
+  textareaattribute.value = "wwwwwwwwwww";
 
-console.log(textareaattribute.value);
-console.log(Reflect.ownKeys(textareaattribute));
+  console.log(textareaattribute.value);
+  console.log(Reflect.ownKeys(textareaattribute));
 
-document.body.appendChild(textareaelement);
+  document.body.appendChild(textareaelement);
 
-textareaattribute.style = "display:block;width:500px;height:100px";
-console.log(textareaelement);
-console.log(Object.entries(textareaattribute));
-/////////////////////////////////////////////////
-var inputelement = document.createElement("input");
-inputelement.type = "text";
-var inputattribute = createeleattr(inputelement);
+  textareaattribute.style = "display:block;width:500px;height:100px";
+  console.log(textareaelement);
+  console.log(Object.entries(textareaattribute));
 
-console.log(inputattribute.value);
+  /////////////////////////////////////////////////
 
-inputattribute.value = "aaaaaaaaaaaaaaaaaaa";
+  const inputelement = document.createElement("input");
+  inputelement.type = "text";
+  const inputattribute = createeleattr(inputelement);
 
-console.log(inputattribute.value);
-console.log(Reflect.ownKeys(inputattribute));
-console.log(Object.entries(inputattribute));
-document.body.appendChild(inputelement);
-inputattribute.style = { display: "block", width: "500px" };
+  console.log(inputattribute.value);
 
-inputattribute.qqqqqqqqqqqqqqqqqqqqq = {
-  1: "wwwwwwwwwwww",
-  bbbbbbb: "wwwxxxxxxxxx"
-};
-console.log(inputelement);
-console.log(Object.entries(inputattribute));
-inputattribute.test1111111111 = true;
-inputattribute.test22222222222 = false;
-console.log(inputattribute);
+  inputattribute.value = "aaaaaaaaaaaaaaaaaaa";
 
-textareaattribute.class = new Set(["aaaaaaa", "rrrrrrrrrrrr"]);
+  console.log(inputattribute.value);
+  console.log(Reflect.ownKeys(inputattribute));
+  console.log(Object.entries(inputattribute));
+  document.body.appendChild(inputelement);
+  inputattribute.style = { display: "block", width: "500px" };
 
-inputattribute.class = ["bbbbbbb", "aaaaaaa", "rrrrrrrrrrrr"];
+  inputattribute.qqqqqqqqqqqqqqqqqqqqq = {
+    1: "wwwwwwwwwwww",
+    bbbbbbb: "wwwxxxxxxxxx"
+  };
+  console.log(inputelement);
+  console.log(Object.entries(inputattribute));
+  inputattribute.test1111111111 = true;
+  inputattribute.test22222222222 = false;
+  console.log(inputattribute);
 
-attribute1.mmmmrrrrrrr = new Set(["attribute1", "mmmmrrrrrrr"]);
-console.log([textareaattribute, inputattribute, attribute1]);
+  textareaattribute.class = new Set(["aaaaaaa", "rrrrrrrrrrrr"]);
+
+  inputattribute.class = ["bbbbbbb", "aaaaaaa", "rrrrrrrrrrrr"];
+
+  console.log([textareaattribute, inputattribute /* attribute1 */]);
+}
+{
+  const element1 = document.querySelector("input[type=checkbox]");
+
+  let attribute1 = createeleattr(element1);
+  console.log([element1, attribute1]);
+  console.log(Object.getOwnPropertyDescriptors(attribute1));
+}
