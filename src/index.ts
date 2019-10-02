@@ -49,12 +49,13 @@ export default function createeleattragentreadwrite(
   asserthtmlelement(ele);
 
   
-  const isinputtextortextareaflag = isinputtextortextarea(ele);
   
   var temp: object = Object.create(null);
 
   const outputattrs = new Proxy(temp, {
     ownKeys(/* target */) {
+const isinputtextortextareaflag = isinputtextortextarea(ele);
+  
       const keys = attributesownkeys(ele);
       
       return Array.from(
@@ -172,6 +173,8 @@ const isinputtextortextareaflag = isinputtextortextarea(ele);
       return true;
     },
     has(target, key) {
+const isinputtextortextareaflag = isinputtextortextarea(ele);
+  
       if (isinputtextortextareaflag && key === valuestring) {
         return true;
       } else {
