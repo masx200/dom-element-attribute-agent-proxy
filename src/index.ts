@@ -70,6 +70,11 @@ export default function createeleattragentreadwrite(
       );
     },
     get(target, key) {
+
+const isinputtextortextareaflag = isinputtextortextarea(ele);
+  const isinputcheckbox =
+    "input" === geteletagname(ele) && get(ele, "type") === "checkbox";
+
       if (isinputcheckbox && key === "checked") {
         return get(ele, "checked");
       }
@@ -99,6 +104,10 @@ export default function createeleattragentreadwrite(
       }
     },
     set(t, key, v) {
+const isinputtextortextareaflag = isinputtextortextarea(ele);
+  const isinputcheckbox =
+    "input" === geteletagname(ele) && get(ele, "type") === "checkbox";
+
       //不允许设置属性为函数
       if ("function" === typeof v) {
         console.error(v);
