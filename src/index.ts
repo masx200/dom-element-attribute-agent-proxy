@@ -16,54 +16,33 @@ function isSet(a: any): a is Set<any> {
   return a instanceof Set;
 }
 
-// function inputandtextareaagent(ele) {
-//   asserthtmlelement(ele);
-//   if (
-//     (ele.tagName === "INPUT" && ele.type === "text") ||
-//     ele.tagName === "TEXTAREA"
-//   ) {
-//     return new Proxy(ele, {
-//       ownKeys() {},
-//       set() {},
-//       has() {},
-//       get() {}
-//     });
-//   } else {
-//     return ele;
-//   }
-// }
 
+//设置style对象时，先json深拷贝
 function objtostylestring(o: object): string {
-  return Object.entries(o)
+  return (
+JSON.parse(
+JSON.stringify(
+
+Object.entries(o)
     .map(([key, value]) => key + ":" + value)
-    .join(";");
+    .join(";")
+)))
 }
 function asserthtmlelement(ele: any) {
   if (
-    !//     ele instanceof HTMLElement ||
-    //      ele instanceof SVGElement ||
-    (ele instanceof Element)
+    
+   ! (ele instanceof Element)
   ) {
     throw TypeError("invalid HTMLElement!");
-  } else return true;
+  } 
 }
 export default function createeleattragentreadwrite(
   ele: HTMLElement | SVGElement | Element | HTMLInputElement
 ): object {
-  //   if (
-  //     !(
-  //       ele instanceof HTMLElement ||
-  //       ele instanceof SVGElement ||
-  //       ele instanceof Element
-  //     )
-  //   ) {
-  //     throw TypeError("invalid HTMLElement!");
-  //   }
+  
   asserthtmlelement(ele);
 
-  // const isinputtextortextarea =
-  //   (ele.tagName === "INPUT" && get(ele, "type") === "text") ||
-  //   ele.tagName === "TEXTAREA";
+  
   const isinputtextortextareaflag = isinputtextortextarea(ele);
   const isinputcheckbox =
     "input" === geteletagname(ele) && get(ele, "type") === "checkbox";
@@ -72,9 +51,7 @@ export default function createeleattragentreadwrite(
   const outputattrs = new Proxy(temp, {
     ownKeys(/* target */) {
       const keys = attributesownkeys(ele);
-      // ownKeys(ele.attributes).filter(
-      //   k => !/\d/.test(String(k)[0])
-      // );
+      
       return Array.from(
         new Set(
           [
