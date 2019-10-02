@@ -58,11 +58,12 @@ export default function createeleattragentreadwrite(
       
       return Array.from(
         new Set(
-          [
+          [...keys,
             isinputcheckbox ? "checked" : undefined,
             isinputtextortextareaflag
-              ? Array.from(new Set([...keys, valuestring]))
-              : keys
+             ? valuestring:undefined
+//Array.from(new Set([...keys, valuestring]))
+            //  : keys
           ]
             .flat(Infinity)
             .filter(a => !!a)
