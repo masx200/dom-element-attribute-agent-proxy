@@ -20,13 +20,17 @@ function isSet(a: any): a is Set<any> {
 //设置style对象时，先json深拷贝
 function objtostylestring(o: object): string {
   return (
+
+Object.entries(
 JSON.parse(
 JSON.stringify(
 
-Object.entries(o)
+o
+))
+)
     .map(([key, value]) => key + ":" + value)
     .join(";")
-)))
+)
 }
 function asserthtmlelement(ele: any) {
   if (
