@@ -16,6 +16,8 @@ function isSet(a: any): a is Set<any> {
   return a instanceof Set;
 }
 
+const isinputcheckbox =ele=>
+    "input" === geteletagname(ele) && get(ele, "type") === "checkbox";
 
 //设置style对象时，先json深拷贝
 function objtostylestring(o: object): string {
@@ -48,8 +50,7 @@ export default function createeleattragentreadwrite(
 
   
   const isinputtextortextareaflag = isinputtextortextarea(ele);
-  const isinputcheckbox =
-    "input" === geteletagname(ele) && get(ele, "type") === "checkbox";
+  
   var temp: object = Object.create(null);
 
   const outputattrs = new Proxy(temp, {
@@ -59,7 +60,7 @@ export default function createeleattragentreadwrite(
       return Array.from(
         new Set(
           [...keys,
-            isinputcheckbox ? "checked" : undefined,
+            isinputcheckbox(ele) ? "checked" : undefined,
             isinputtextortextareaflag
              ? valuestring:undefined
 //Array.from(new Set([...keys, valuestring]))
@@ -73,10 +74,9 @@ export default function createeleattragentreadwrite(
     get(target, key) {
 
 const isinputtextortextareaflag = isinputtextortextarea(ele);
-  const isinputcheckbox =
-    "input" === geteletagname(ele) && get(ele, "type") === "checkbox";
+  
 
-      if (isinputcheckbox && key === "checked") {
+      if (isinputcheckbox(ele) && key === "checked") {
         return get(ele, "checked");
       }
       if (isinputtextortextareaflag && key === valuestring) {
@@ -106,8 +106,7 @@ const isinputtextortextareaflag = isinputtextortextarea(ele);
     },
     set(t, key, v) {
 const isinputtextortextareaflag = isinputtextortextarea(ele);
-  const isinputcheckbox =
-    "input" === geteletagname(ele) && get(ele, "type") === "checkbox";
+  
 
       //不允许设置属性为函数
       if ("function" === typeof v) {
