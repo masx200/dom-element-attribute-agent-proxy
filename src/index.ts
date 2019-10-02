@@ -1,6 +1,6 @@
 const String = window.String;
 const Reflect = window.Reflect;
-const { get, set } = Reflect;
+const { get, set ,ownkeys} = Reflect;
 const valuestring = "value";
 function isobject(a: any): a is object {
   return typeof a === "object" && a !== null;
@@ -173,6 +173,8 @@ const isinputtextortextareaflag = isinputtextortextarea(ele);
       return true;
     },
     has(target, key) {
+return ownkeys(outputattrs).includes(key)
+/*
 const isinputtextortextareaflag = isinputtextortextarea(ele);
   
       if (isinputtextortextareaflag && key === valuestring) {
@@ -182,6 +184,8 @@ const isinputtextortextareaflag = isinputtextortextarea(ele);
 
         // ele.hasAttribute(String(key));
       }
+
+*/
     },
     defineProperty() {
       return false;
