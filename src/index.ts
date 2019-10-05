@@ -146,7 +146,7 @@ ele.style.cssText=csstext
         } else if (isSet(v)) {
           setattribute(ele, String(key), [...v].join(" "));
         } else {
-          setattribute(ele, String(key), JSON.stringify(v));
+          setattribute(ele, String(key), String(v));
         }
         //
       } else {
