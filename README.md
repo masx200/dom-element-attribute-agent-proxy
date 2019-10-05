@@ -36,11 +36,16 @@ attribute1["data-tagsearch-ref"] = "master";
 console.log(Object.entries(attribute1));
 attribute1.class = new Set(["wwwwwwwww1", "sssssssq"]);
 ```
+# 更新 : 添加了对于 `input`元素中 `type="checkbox"` 的 `checked` 的读写操作,
 
-# 更新 : 添加了对于 input 和 textarea 的 value 的读写操作,和 style 属性的对象写法
+# 更新 : 添加了对于 `input` 和 `textarea` 的 `value` 的读写操作,
 
-# 更新 :添加了 class 属性对于 Array 和 Set 的支持,也增加了其他属性对于 Set 转 Array 的支持
+# 支持`style` 属性的对象写法
 
-# 关于 Proxy
+# 更新：`style`属性支持驼峰命名法和横杠命名法，自动转换成字符串
+
+# 更新 :添加了 `class` 属性对于 `Array` 和 `Set` 的支持,也增加了其他属性对于 `Set` 转 `Array` 的支持
+
+# 关于 `Proxy`
 
 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy
