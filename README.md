@@ -40,7 +40,7 @@ attribute1.class = new Set(["wwwwwwwww1", "sssssssq"]);
 
 # 更新 : 添加了对于 `input` 和 `textarea` 的 `value` 的读写操作,
 
-# 支持`style` 属性的对象写法
+# 支持`style` 属性的对象类型和字符串类型
 
 # 更新：`style`属性支持驼峰命名法和横杠命名法，自动转换成字符串
 
