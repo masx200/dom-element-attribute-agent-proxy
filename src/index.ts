@@ -141,13 +141,20 @@ ele.style.cssText=csstext
         ); */
         return true;
       } else if (key === "class" && isobject(v)) {
-        if (isArray(v)) {
+
+
+
+const classtext=isArray(v)?v.join(" "):isSet(v)?[...v].join(" "):String(v)
+
+setattribute(ele, String(key), classtext)
+
+      /*  if (isArray(v)) {
           setattribute(ele, String(key), v.join(" "));
         } else if (isSet(v)) {
           setattribute(ele, String(key), [...v].join(" "));
         } else {
           setattribute(ele, String(key), String(v));
-        }
+        }*/
         //
       } else {
         //如果设置为true,则设置属性空字符串
