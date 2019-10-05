@@ -29,14 +29,16 @@ const isinputcheckbox =ele=>
     "input" === geteletagname(ele) && get(ele, "type") === "checkbox";
 
 //设置style对象时，先json深拷贝
-function objtostylestring(o: object): string {
+function objtostylestring(obj: object): string {
+//style属性的驼峰转横杠
+obj=Object.fromEntries(Object.entries(obj).map(([key,value])=>[hyphenate(key),value]))
   return (
 
 Object.entries(
 JSON.parse(
 JSON.stringify(
 
-o
+obj
 ))
 )
     .map(([key, value]) => key + ":" + value)
