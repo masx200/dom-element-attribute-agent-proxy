@@ -9,6 +9,8 @@
     "description": "基于proxy封装的对于dom元素的attribute的读写操作库",
     "version": "1.1.12",
     "scripts": {
+"prettier":"prettier --parser=typescript --write *.ts",
+
         "build": " rollup -c rollup.config.js",
         "test": "live-server"
     },
@@ -21,6 +23,8 @@
     },
     "homepage": "https://github.com/masx200/dom-element-attribute-agent-proxy#readme",
     "devDependencies": {
+"prettier": "^1.18.2",
+
         "eslint": "^6.4.0",
         "eslint-config-prettier": "^6.3.0",
         "@typescript-eslint/eslint-plugin": "^2.2.0",
