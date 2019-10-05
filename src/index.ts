@@ -58,7 +58,9 @@ function asserthtmlelement(ele: any) {
     
    ! (ele instanceof Element)
   ) {
-    throw TypeError("invalid HTMLElement!");
+console.error(ele)
+console.error("invalid HTMLElement!")
+    throw TypeError();
   } 
 }
 export default function createeleattragentreadwrite(
@@ -131,7 +133,9 @@ const isinputtextortextareaflag = isinputtextortextarea(ele);
       //不允许设置属性为函数
       if ("function" === typeof v) {
         console.error(v);
-        throw TypeError("Setting properties as functions is not allowed");
+
+console.error("Setting properties as functions is not allowed")
+        throw TypeError();
 
         // throw TypeError("不允许设置属性为函数");
       }
