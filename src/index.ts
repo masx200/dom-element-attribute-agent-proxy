@@ -31,15 +31,23 @@ const isinputcheckbox =ele=>
 //设置style对象时，先json深拷贝
 function objtostylestring(obj: object): string {
 //style属性的驼峰转横杠
-obj=Object.fromEntries(Object.entries(obj).map(([key,value])=>[hyphenate(key),value]))
-  return (
 
-Object.entries(
-JSON.parse(
+obj=JSON.parse(
 JSON.stringify(
 
 obj
 ))
+
+obj=Object.fromEntries(Object.entries(obj).map(([key,value])=>[hyphenate(key).trim(),value.trim()]))
+
+  
+
+
+
+return (
+
+Object.entries(
+obj
 )
     .map(([key, value]) => key + ":" + value)
     .join(";")
@@ -139,7 +147,7 @@ const isinputtextortextareaflag = isinputtextortextarea(ele);
 const csstext=isstring(v) ? v : isobject(v) ? objtostylestring(v) : String(v)
 //设置csstext可以删除注释
 
-ele.style.cssText=csstext
+ele.style.cssText=csstext.trim()
 
     //    setattribute(
     //      ele,
