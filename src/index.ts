@@ -125,11 +125,16 @@ const isinputtextortextareaflag = isinputtextortextarea(ele);
       if (isinputtextortextareaflag && key === valuestring) {
         return set(ele, valuestring, v);
       } else if (key === "style") {
-        setattribute(
-          ele,
-          String(key),
-          isstring(v) ? v : isobject(v) ? objtostylestring(v) : String(v)
-        );
+const csstext=isstring(v) ? v : isobject(v) ? objtostylestring(v) : String(v)
+//设置csstext可以删除注释
+
+ele.style.cssText=csstext
+
+    //    setattribute(
+    //      ele,
+   //       String(key),
+    //      isstring(v) ? v : isobject(v) ? objtostylestring(v) : String(v)
+   //     );
         /*   ele.setAttribute(
           String(key),
           isstring(v) ? v : isobject(v) ? objtostylestring(v) : String(v)
