@@ -1,15 +1,15 @@
-const camelizeRE = /-(\w)/g
-export const camelize = (str: string): string => {
-  return str.replace(camelizeRE, (_, c) => (c ? c.toUpperCase() : ''))
-}
-
-const hyphenateRE = /\B([A-Z])/g
-export const hyphenate = (str: string): string => {
-  return str.replace(hyphenateRE, '-$1').toLowerCase()
-}
+/* const camelizeRE = /-(\w)/g;
+const camelize = (str: string): string => {
+  return str.replace(camelizeRE, (_, c) => (c ? c.toUpperCase() : ""));
+};
+ */
+const hyphenateRE = /\B([A-Z])/g;
+const hyphenate = (str: string): string => {
+  return str.replace(hyphenateRE, "-$1").toLowerCase();
+};
 const String = window.String;
 const Reflect = window.Reflect;
-const { get, set ,ownKeys} = Reflect;
+const { get, set, ownKeys } = Reflect;
 const valuestring = "value";
 function isobject(a: any): a is object {
   return typeof a === "object" && a !== null;
@@ -25,67 +25,54 @@ function isSet(a: any): a is Set<any> {
   return a instanceof Set;
 }
 
-const isinputcheckbox =ele=>
-    "input" === geteletagname(ele) && get(ele, "type") === "checkbox";
+const isinputcheckbox = (
+  ele: HTMLElement | Element | SVGElement | HTMLInputElement
+) => "input" === geteletagname(ele) && get(ele, "type") === "checkbox";
 
 //设置style对象时，先json深拷贝
 function objtostylestring(obj: object): string {
-//style属性的驼峰转横杠
+  //style属性的驼峰转横杠
 
-obj=JSON.parse(
-JSON.stringify(
+  obj = JSON.parse(JSON.stringify(obj));
 
-obj
-))
+  obj = Object.fromEntries(
+    Object.entries(obj).map(([key, value]) => [
+      hyphenate(key).trim(),
+      value.trim()
+    ])
+  );
 
-obj=Object.fromEntries(Object.entries(obj).map(([key,value])=>[hyphenate(key).trim(),value.trim()]))
-
-  
-
-
-
-return (
-
-Object.entries(
-obj
-)
+  return Object.entries(obj)
     .map(([key, value]) => key + ":" + value)
-    .join(";")
-)
+    .join(";");
 }
 function asserthtmlelement(ele: any) {
-  if (
-    
-   ! (ele instanceof Element)
-  ) {
-console.error(ele)
-console.error("invalid HTMLElement!")
+  if (!(ele instanceof Element)) {
+    console.error(ele);
+    console.error("invalid HTMLElement!");
     throw TypeError();
-  } 
+  }
 }
 export default function createeleattragentreadwrite(
   ele: HTMLElement | SVGElement | Element | HTMLInputElement
 ): object {
-  
   asserthtmlelement(ele);
 
-  
-  
   var temp: object = Object.create(null);
 
-  const outputattrs = new Proxy(temp, {
+  const outputattrs: object = new Proxy(temp, {
     ownKeys(/* target */) {
-const isinputtextortextareaflag = isinputtextortextarea(ele);
-  
+      const isinputtextortextareaflag = isinputtextortextarea(ele);
+
       const keys = attributesownkeys(ele);
-      
+
       return Array.from(
         new Set(
-          [...keys,
+          [
+            ...keys,
             isinputcheckbox(ele) ? "checked" : undefined,
-            isinputtextortextareaflag
-             ? valuestring:undefined
-//Array.from(new Set([...keys, valuestring]))
+            isinputtextortextareaflag ? valuestring : undefined
+            //Array.from(new Set([...keys, valuestring]))
             //  : keys
           ]
             .flat(Infinity)
@@ -94,9 +81,7 @@ const isinputtextortextareaflag = isinputtextortextarea(ele);
       );
     },
     get(target, key) {
-
-const isinputtextortextareaflag = isinputtextortextarea(ele);
-  
+      const isinputtextortextareaflag = isinputtextortextarea(ele);
 
       if (isinputcheckbox(ele) && key === "checked") {
         return get(ele, "checked");
@@ -127,14 +112,13 @@ const isinputtextortextareaflag = isinputtextortextarea(ele);
       }
     },
     set(t, key, v) {
-const isinputtextortextareaflag = isinputtextortextarea(ele);
-  
+      const isinputtextortextareaflag = isinputtextortextarea(ele);
 
       //不允许设置属性为函数
       if ("function" === typeof v) {
         console.error(v);
 
-console.error("Setting properties as functions is not allowed")
+        console.error("Setting properties as functions is not allowed");
         throw TypeError();
 
         // throw TypeError("不允许设置属性为函数");
@@ -148,30 +132,35 @@ console.error("Setting properties as functions is not allowed")
       if (isinputtextortextareaflag && key === valuestring) {
         return set(ele, valuestring, v);
       } else if (key === "style") {
-const csstext=isstring(v) ? v : isobject(v) ? objtostylestring(v) : String(v)
-//设置csstext可以删除注释
+        const csstext = isstring(v)
+          ? v
+          : isobject(v)
+          ? objtostylestring(v)
+          : String(v);
+        //设置csstext可以删除注释
+        set(get(ele, "style"), "cssText", csstext.trim());
+        // ele.style.cssText = csstext.trim();
 
-ele.style.cssText=csstext.trim()
-
-    //    setattribute(
-    //      ele,
-   //       String(key),
-    //      isstring(v) ? v : isobject(v) ? objtostylestring(v) : String(v)
-   //     );
+        //    setattribute(
+        //      ele,
+        //       String(key),
+        //      isstring(v) ? v : isobject(v) ? objtostylestring(v) : String(v)
+        //     );
         /*   ele.setAttribute(
           String(key),
           isstring(v) ? v : isobject(v) ? objtostylestring(v) : String(v)
         ); */
         return true;
       } else if (key === "class" && isobject(v)) {
+        const classtext = isArray(v)
+          ? v.join(" ")
+          : isSet(v)
+          ? [...v].join(" ")
+          : String(v);
 
+        setattribute(ele, String(key), classtext);
 
-
-const classtext=isArray(v)?v.join(" "):isSet(v)?[...v].join(" "):String(v)
-
-setattribute(ele, String(key), classtext)
-
-      /*  if (isArray(v)) {
+        /*  if (isArray(v)) {
           setattribute(ele, String(key), v.join(" "));
         } else if (isSet(v)) {
           setattribute(ele, String(key), [...v].join(" "));
@@ -208,8 +197,8 @@ setattribute(ele, String(key), classtext)
       return true;
     },
     has(target, key) {
-return ownKeys(outputattrs).includes(key)
-/*
+      return ownKeys(outputattrs).includes(key);
+      /*
 const isinputtextortextareaflag = isinputtextortextarea(ele);
   
       if (isinputtextortextareaflag && key === valuestring) {
@@ -312,13 +301,13 @@ function removeAttribute(
   return ele.removeAttribute(key);
 }
 
-function hasAttribute(
+/* function hasAttribute(
   ele: HTMLElement | Element | SVGElement | HTMLInputElement,
   key: string
 ) {
   return ele.hasAttribute(key);
 }
-
+ */
 function isinputtextortextarea(
   ele: HTMLElement | Element | SVGElement | HTMLInputElement
 ) {

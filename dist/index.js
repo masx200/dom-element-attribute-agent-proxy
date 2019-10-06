@@ -1,8 +1,14 @@
+const hyphenateRE = /\B([A-Z])/g;
+
+const hyphenate = str => {
+    return str.replace(hyphenateRE, "-$1").toLowerCase();
+};
+
 const String = window.String;
 
 const Reflect = window.Reflect;
 
-const {get: get, set: set} = Reflect;
+const {get: get, set: set, ownKeys: ownKeys} = Reflect;
 
 const valuestring = "value";
 
@@ -22,28 +28,34 @@ function isSet(a) {
     return a instanceof Set;
 }
 
-function objtostylestring(o) {
-    return Object.entries(o).map(([key, value]) => key + ":" + value).join(";");
+const isinputcheckbox = ele => "input" === geteletagname(ele) && get(ele, "type") === "checkbox";
+
+function objtostylestring(obj) {
+    obj = JSON.parse(JSON.stringify(obj));
+    obj = Object.fromEntries(Object.entries(obj).map(([key, value]) => [ hyphenate(key).trim(), value.trim() ]));
+    return Object.entries(obj).map(([key, value]) => key + ":" + value).join(";");
 }
 
 function asserthtmlelement(ele) {
     if (!(ele instanceof Element)) {
-        throw TypeError("invalid HTMLElement!");
-    } else return true;
+        console.error(ele);
+        console.error("invalid HTMLElement!");
+        throw TypeError();
+    }
 }
 
 function createeleattragentreadwrite(ele) {
     asserthtmlelement(ele);
-    const isinputtextortextareaflag = isinputtextortextarea(ele);
-    const isinputcheckbox = "input" === geteletagname(ele) && get(ele, "type") === "checkbox";
     var temp = Object.create(null);
     const outputattrs = new Proxy(temp, {
         ownKeys() {
+            const isinputtextortextareaflag = isinputtextortextarea(ele);
             const keys = attributesownkeys(ele);
-            return Array.from(new Set([ isinputcheckbox ? "checked" : undefined, isinputtextortextareaflag ? Array.from(new Set([ ...keys, valuestring ])) : keys ].flat(Infinity).filter(a => !!a)));
+            return Array.from(new Set([ ...keys, isinputcheckbox(ele) ? "checked" : undefined, isinputtextortextareaflag ? valuestring : undefined ].flat(Infinity).filter(a => !!a)));
         },
         get(target, key) {
-            if (isinputcheckbox && key === "checked") {
+            const isinputtextortextareaflag = isinputtextortextarea(ele);
+            if (isinputcheckbox(ele) && key === "checked") {
                 return get(ele, "checked");
             }
             if (isinputtextortextareaflag && key === valuestring) {
@@ -66,9 +78,11 @@ function createeleattragentreadwrite(ele) {
             }
         },
         set(t, key, v) {
+            const isinputtextortextareaflag = isinputtextortextarea(ele);
             if ("function" === typeof v) {
                 console.error(v);
-                throw TypeError("Setting properties as functions is not allowed");
+                console.error("Setting properties as functions is not allowed");
+                throw TypeError();
             }
             if (geteletagname(ele) === "input" && key === "checked") {
                 set(ele, key, v);
@@ -77,16 +91,12 @@ function createeleattragentreadwrite(ele) {
             if (isinputtextortextareaflag && key === valuestring) {
                 return set(ele, valuestring, v);
             } else if (key === "style") {
-                setattribute(ele, String(key), isstring(v) ? v : isobject(v) ? objtostylestring(v) : String(v));
+                const csstext = isstring(v) ? v : isobject(v) ? objtostylestring(v) : String(v);
+                set(get(ele, "style"), "cssText", csstext.trim());
                 return true;
             } else if (key === "class" && isobject(v)) {
-                if (isArray(v)) {
-                    setattribute(ele, String(key), v.join(" "));
-                } else if (isSet(v)) {
-                    setattribute(ele, String(key), [ ...v ].join(" "));
-                } else {
-                    setattribute(ele, String(key), JSON.stringify(v));
-                }
+                const classtext = isArray(v) ? v.join(" ") : isSet(v) ? [ ...v ].join(" ") : String(v);
+                setattribute(ele, String(key), classtext);
             } else {
                 if (isSet(v)) {
                     setattribute(ele, String(key), JSON.stringify([ ...v ]));
@@ -105,11 +115,7 @@ function createeleattragentreadwrite(ele) {
             return true;
         },
         has(target, key) {
-            if (isinputtextortextareaflag && key === valuestring) {
-                return true;
-            } else {
-                return hasAttribute(ele, String(key));
-            }
+            return ownKeys(outputattrs).includes(key);
         },
         defineProperty() {
             return false;
@@ -155,10 +161,6 @@ function setattribute(ele, key, value) {
 
 function removeAttribute(ele, key) {
     return ele.removeAttribute(key);
-}
-
-function hasAttribute(ele, key) {
-    return ele.hasAttribute(key);
 }
 
 function isinputtextortextarea(ele) {
