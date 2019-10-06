@@ -23,7 +23,7 @@ function createeleattr(ele: HTMLElement): object;
 # 使用方法
 
 ```javascript
-import createeleattr from "dom-element-attribute-agent-proxy";
+import createeleattr from "@masx200/dom-element-attribute-agent-proxy";
 var element1 = document.querySelector(
   "div.Popover.anim-scale-in.js-tagsearch-popover"
 );
@@ -36,6 +36,7 @@ attribute1["data-tagsearch-ref"] = "master";
 console.log(Object.entries(attribute1));
 attribute1.class = new Set(["wwwwwwwww1", "sssssssq"]);
 ```
+
 # 更新 : 添加了对于 `input`元素中 `type="checkbox"` 的 `checked` 的读写操作,
 
 # 更新 : 添加了对于 `input` 和 `textarea` 的 `value` 的读写操作,
