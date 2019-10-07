@@ -38,7 +38,7 @@ function objtostylestring(obj: object): string {
   obj = Object.fromEntries(
     Object.entries(obj).map(([key, value]) => [
       hyphenate(key).trim(),
-      value.trim()
+      value
     ])
   );
 
