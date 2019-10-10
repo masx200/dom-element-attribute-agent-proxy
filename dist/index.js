@@ -165,7 +165,7 @@ function removeAttribute(ele, key) {
 
 function isinputtextortextarea(ele) {
     const tagname = geteletagname(ele);
-    return tagname === "input" && get(ele, "type") === "text" || tagname === "textarea" || tagname === "select";
+    return tagname === "textarea" || tagname === "select" || tagname === "input" && get(ele, "type") === "text";
 }
 
 export default createeleattragentreadwrite;

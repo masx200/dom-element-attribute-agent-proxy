@@ -309,9 +309,10 @@ function isinputtextortextarea(
 ) {
   const tagname = geteletagname(ele);
   return (
-    (tagname === "input" && get(ele, "type") === "text") ||
     tagname === "textarea" ||
-    tagname === "select"
+    tagname === "select" ||
+    (tagname === "input" && get(ele, "type") === "text")
+
     /* 添加select元素 */
   );
 }
