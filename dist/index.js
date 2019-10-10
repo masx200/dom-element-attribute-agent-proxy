@@ -89,7 +89,7 @@ function createeleattragentreadwrite(ele) {
                 return true;
             }
             if (isinputtextortextareaflag && key === valuestring) {
-                return set(ele, valuestring, v);
+                return set(ele, valuestring, String(v));
             } else if (key === "style") {
                 const csstext = isstring(v) ? v : isobject(v) ? objtostylestring(v) : String(v);
                 set(get(ele, "style"), "cssText", csstext.trim());
@@ -165,7 +165,7 @@ function removeAttribute(ele, key) {
 
 function isinputtextortextarea(ele) {
     const tagname = geteletagname(ele);
-    return tagname === "input" && get(ele, "type") === "text" || tagname === "textarea";
+    return tagname === "input" && get(ele, "type") === "text" || tagname === "textarea" || tagname === "select";
 }
 
 export default createeleattragentreadwrite;

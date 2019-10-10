@@ -1,12 +1,12 @@
 import createeleattr from "../dist/index.js";
 {
-  const element1 = document.querySelector("div");
+  const element1 = document.querySelector("div#b222222aaaaaaaaaa");
   const attribute1 = createeleattr(element1);
 
   console.log(attribute1.class);
   attribute1["data-tagsearch-ref"] = "master";
 
-  attribute1.class = "sssssssq";
+  attribute1.class = new Set(["sssssssq", "去"]);
   console.log(attribute1.class);
 
   attribute1.testarray = [1, "sssssssq"];
@@ -71,6 +71,11 @@ import createeleattr from "../dist/index.js";
   const element1 = document.querySelector("input[type=checkbox]");
 
   let attribute1 = createeleattr(element1);
-  console.log([element1, attribute1]);
+  attribute1.style = { textAlign: "center" };
+  console.log(attribute1.style);
+  console.log([element1, { ...attribute1 }]);
   console.log(Object.getOwnPropertyDescriptors(attribute1));
 }
+[...document.all]
+  .map(e => [e, { ...createeleattr(e) }, e.outerHTML])
+  .forEach(a => console.log(a));

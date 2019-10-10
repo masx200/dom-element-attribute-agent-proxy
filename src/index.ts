@@ -36,10 +36,7 @@ function objtostylestring(obj: object): string {
   obj = JSON.parse(JSON.stringify(obj));
 
   obj = Object.fromEntries(
-    Object.entries(obj).map(([key, value]) => [
-      hyphenate(key).trim(),
-      value
-    ])
+    Object.entries(obj).map(([key, value]) => [hyphenate(key).trim(), value])
   );
 
   return Object.entries(obj)
@@ -53,9 +50,7 @@ function asserthtmlelement(ele: any) {
     throw TypeError();
   }
 }
-export default function createeleattragentreadwrite(
-  ele: HTMLElement | SVGElement | Element | HTMLInputElement
-): object {
+export default function createeleattragentreadwrite(ele: Element): object {
   asserthtmlelement(ele);
 
   var temp: object = Object.create(null);
@@ -130,7 +125,8 @@ export default function createeleattragentreadwrite(
       }
 
       if (isinputtextortextareaflag && key === valuestring) {
-        return set(ele, valuestring, v);
+        //设置元素的value属性,转成字符串
+        return set(ele, valuestring, String(v));
       } else if (key === "style") {
         const csstext = isstring(v)
           ? v
@@ -314,6 +310,8 @@ function isinputtextortextarea(
   const tagname = geteletagname(ele);
   return (
     (tagname === "input" && get(ele, "type") === "text") ||
-    tagname === "textarea"
+    tagname === "textarea" ||
+    tagname === "select"
+    /* 添加select元素 */
   );
 }

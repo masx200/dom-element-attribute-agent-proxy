@@ -39,7 +39,7 @@ attribute1.class = new Set(["wwwwwwwww1", "sssssssq"]);
 
 # 更新 : 添加了对于 `input`元素中 `type="checkbox"` 的 `checked` 的读写操作,
 
-# 更新 : 添加了对于 `input` 和 `textarea` 的 `value` 的读写操作,
+# 更新 : 添加了对于 `input` 和 `textarea`和`select`元素 的 `value` 的读写操作,
 
 # 支持`style` 属性的对象类型和字符串类型
 
