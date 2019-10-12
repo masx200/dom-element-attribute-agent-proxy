@@ -11,7 +11,7 @@ const String = window.String;
 const Reflect = window.Reflect;
 const { get, set, ownKeys } = Reflect;
 const valuestring = "value";
-function isobject(a: any): a is object {
+function isobject(a: any): a is Record<any, any> {
   return typeof a === "object" && a !== null;
 }
 function isstring(a: any): a is string {
@@ -50,12 +50,14 @@ function asserthtmlelement(ele: any) {
     throw TypeError();
   }
 }
-export default function createeleattragentreadwrite(ele: Element): object {
+export default function createeleattragentreadwrite(
+  ele: Element
+): Record<string, any> {
   asserthtmlelement(ele);
 
-  var temp: object = Object.create(null);
+  var temp: Record<string, any> = Object.create(null);
 
-  const outputattrs: object = new Proxy(temp, {
+  const outputattrs: Record<string, any> = new Proxy(temp, {
     ownKeys(/* target */) {
       const isinputtextortextareaflag = isinputtextortextarea(ele);
 
