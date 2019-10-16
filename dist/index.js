@@ -28,7 +28,7 @@ function isSet(a) {
     return a instanceof Set;
 }
 
-const isinputcheckbox = ele => "input" === geteletagname(ele) && get(ele, "type") === "checkbox";
+const isinputcheckbox = ele => "input" === geteletagname(ele) && (get(ele, "type") === "checkbox" || get(ele, "type") === "radio");
 
 function objtostylestring(obj) {
     obj = JSON.parse(JSON.stringify(obj));
@@ -98,6 +98,9 @@ function createeleattragentreadwrite(ele) {
                 const classtext = isArray(v) ? v.join(" ") : isSet(v) ? [ ...v ].join(" ") : String(v);
                 setattribute(ele, String(key), classtext);
             } else {
+                if (false === v) {
+                    removeAttribute(ele, String(key));
+                }
                 if (isSet(v)) {
                     setattribute(ele, String(key), JSON.stringify([ ...v ]));
                 } else {

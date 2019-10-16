@@ -27,7 +27,9 @@ function isSet(a: any): a is Set<any> {
 
 const isinputcheckbox = (
   ele: HTMLElement | Element | SVGElement | HTMLInputElement
-) => "input" === geteletagname(ele) && get(ele, "type") === "checkbox";
+) =>
+  "input" === geteletagname(ele) &&
+  (get(ele, "type") === "checkbox" || get(ele, "type") === "radio");
 
 //设置style对象时，先json深拷贝
 function objtostylestring(obj: object): string {
@@ -167,6 +169,11 @@ export default function createeleattragentreadwrite(
         }*/
         //
       } else {
+        /* 如果为false则删除attribute */
+
+        if (false === v) {
+          removeAttribute(ele, String(key));
+        }
         //如果设置为true,则设置属性空字符串
         if (isSet(v)) {
           setattribute(ele, String(key), JSON.stringify([...v]));
