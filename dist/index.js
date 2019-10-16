@@ -97,12 +97,15 @@ function createeleattragentreadwrite(ele) {
             } else if (key === "class" && isobject(v)) {
                 const classtext = isArray(v) ? v.join(" ") : isSet(v) ? [ ...v ].join(" ") : String(v);
                 setattribute(ele, String(key), classtext);
+                return true;
             } else {
                 if (false === v) {
                     removeAttribute(ele, String(key));
+                    return true;
                 }
                 if (isSet(v)) {
                     setattribute(ele, String(key), JSON.stringify([ ...v ]));
+                    return true;
                 } else {
                     if (v === true) {
                         v = "";
@@ -111,7 +114,6 @@ function createeleattragentreadwrite(ele) {
                     return true;
                 }
             }
-            return true;
         },
         deleteProperty(t, k) {
             removeAttribute(ele, String(k));
