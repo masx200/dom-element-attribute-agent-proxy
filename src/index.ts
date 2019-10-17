@@ -37,11 +37,11 @@ function objtostylestring(obj: object): string {
 
   obj = JSON.parse(JSON.stringify(obj));
 
-  obj = Object.fromEntries(
+ const objentries =(
     Object.entries(obj).map(([key, value]) => [hyphenate(key).trim(), value])
   );
 
-  return Object.entries(obj)
+  return objentries
     .map(([key, value]) => key + ":" + value)
     .join(";");
 }
