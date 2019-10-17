@@ -171,7 +171,7 @@ export default function createeleattragentreadwrite(
       } else {
         /* 如果为false则删除attribute */
 
-        if (false === v) {
+        if (false === v||v===null||v===undefined) {
           removeAttribute(ele, String(key));
           return true;
         }
