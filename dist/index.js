@@ -32,8 +32,8 @@ const isinputcheckbox = ele => "input" === geteletagname(ele) && (get(ele, "type
 
 function objtostylestring(obj) {
     obj = JSON.parse(JSON.stringify(obj));
-    obj = Object.fromEntries(Object.entries(obj).map(([key, value]) => [ hyphenate(key).trim(), value ]));
-    return Object.entries(obj).map(([key, value]) => key + ":" + value).join(";");
+    const objentries = Object.entries(obj).map(([key, value]) => [ hyphenate(key).trim(), value ]);
+    return objentries.map(([key, value]) => key + ":" + value).join(";");
 }
 
 function asserthtmlelement(ele) {
@@ -99,7 +99,7 @@ function createeleattragentreadwrite(ele) {
                 setattribute(ele, String(key), classtext);
                 return true;
             } else {
-                if (false === v) {
+                if (false === v || v === null || v === undefined) {
                     removeAttribute(ele, String(key));
                     return true;
                 }

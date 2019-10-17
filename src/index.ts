@@ -37,13 +37,12 @@ function objtostylestring(obj: object): string {
 
   obj = JSON.parse(JSON.stringify(obj));
 
- const objentries =(
-    Object.entries(obj).map(([key, value]) => [hyphenate(key).trim(), value])
-  );
+  const objentries = Object.entries(obj).map(([key, value]) => [
+    hyphenate(key).trim(),
+    value
+  ]);
 
-  return objentries
-    .map(([key, value]) => key + ":" + value)
-    .join(";");
+  return objentries.map(([key, value]) => key + ":" + value).join(";");
 }
 function asserthtmlelement(ele: any) {
   if (!(ele instanceof Element)) {
@@ -171,7 +170,7 @@ export default function createeleattragentreadwrite(
       } else {
         /* 如果为false则删除attribute */
 
-        if (false === v||v===null||v===undefined) {
+        if (false === v || v === null || v === undefined) {
           removeAttribute(ele, String(key));
           return true;
         }
