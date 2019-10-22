@@ -1,3 +1,9 @@
+const acceptValue = [ "input", "textarea", "option", "select" ];
+
+var mustUseDomProp = (tag, attr, attrtype) => {
+    return attr === "value" && acceptValue.includes(tag) && attrtype !== "button" || attr === "selected" && tag === "option" || attr === "checked" && tag === "input" || attr === "muted" && tag === "video";
+};
+
 const hyphenateRE = /\B([A-Z])/g;
 
 const hyphenate = str => {
@@ -54,12 +60,8 @@ function createeleattragentreadwrite(ele) {
             return Array.from(new Set([ ...keys, isinputcheckbox(ele) ? "checked" : undefined, isinputtextortextareaflag ? valuestring : undefined ].flat(Infinity).filter(a => !!a)));
         },
         get(target, key) {
-            const isinputtextortextareaflag = isinputtextortextarea(ele);
-            if (isinputcheckbox(ele) && key === "checked") {
-                return get(ele, "checked");
-            }
-            if (isinputtextortextareaflag && key === valuestring) {
-                return get(ele, valuestring);
+            if (mustUseDomProp(geteletagname(ele), String(key), get(ele, "type"))) {
+                return get(ele, String(key));
             } else {
                 const v = getattribute(ele, String(key));
                 if (v === "") {
@@ -78,18 +80,13 @@ function createeleattragentreadwrite(ele) {
             }
         },
         set(t, key, v) {
-            const isinputtextortextareaflag = isinputtextortextarea(ele);
             if ("function" === typeof v) {
                 console.error(v);
                 console.error("Setting properties as functions is not allowed");
                 throw TypeError();
             }
-            if (geteletagname(ele) === "input" && key === "checked") {
-                set(ele, key, v);
-                return true;
-            }
-            if (isinputtextortextareaflag && key === valuestring) {
-                return set(ele, valuestring, String(v));
+            if (mustUseDomProp(geteletagname(ele), String(key), get(ele, "type"))) {
+                return set(ele, String(key), v);
             } else if (key === "style") {
                 const csstext = isstring(v) ? v : isobject(v) ? objtostylestring(v) : String(v);
                 set(get(ele, "style"), "cssText", csstext.trim());

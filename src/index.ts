@@ -1,3 +1,4 @@
+import mustUseDomProp from "./mustUseDomProp";
 /* const camelizeRE = /-(\w)/g;
 const camelize = (str: string): string => {
   return str.replace(camelizeRE, (_, c) => (c ? c.toUpperCase() : ""));
@@ -79,13 +80,17 @@ export default function createeleattragentreadwrite(
       );
     },
     get(target, key) {
-      const isinputtextortextareaflag = isinputtextortextarea(ele);
+      //   const isinputtextortextareaflag = isinputtextortextarea(ele);
 
-      if (isinputcheckbox(ele) && key === "checked") {
-        return get(ele, "checked");
-      }
-      if (isinputtextortextareaflag && key === valuestring) {
-        return get(ele, valuestring);
+      //   if (isinputcheckbox(ele) && key === "checked") {
+      //     return get(ele, "checked");
+      //   }
+      //   if (isinputtextortextareaflag && key === valuestring) {
+      //     return get(ele, valuestring);
+
+      //   }
+      if (mustUseDomProp(geteletagname(ele), String(key), get(ele, "type"))) {
+        return get(ele, String(key));
       } else {
         const v = getattribute(ele, String(key));
         // ele.getAttribute(String(key));
@@ -110,7 +115,7 @@ export default function createeleattragentreadwrite(
       }
     },
     set(t, key, v) {
-      const isinputtextortextareaflag = isinputtextortextarea(ele);
+      //   const isinputtextortextareaflag = isinputtextortextarea(ele);
 
       //不允许设置属性为函数
       if ("function" === typeof v) {
@@ -122,7 +127,7 @@ export default function createeleattragentreadwrite(
         // throw TypeError("不允许设置属性为函数");
       }
       /* 对于input的checkbox设置 checked属性时,不添加属性,直接修改checked属性*/
-      if (geteletagname(ele) === "input" && key === "checked") {
+      /*  if (geteletagname(ele) === "input" && key === "checked") {
         set(ele, key, v);
         return true;
       }
@@ -130,6 +135,10 @@ export default function createeleattragentreadwrite(
       if (isinputtextortextareaflag && key === valuestring) {
         //设置元素的value属性,转成字符串
         return set(ele, valuestring, String(v));
+      }  */
+
+      if (mustUseDomProp(geteletagname(ele), String(key), get(ele, "type"))) {
+        return set(ele, String(key), v);
       } else if (key === "style") {
         const csstext = isstring(v)
           ? v
