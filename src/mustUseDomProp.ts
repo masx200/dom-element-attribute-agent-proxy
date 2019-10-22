@@ -1,6 +1,6 @@
 const acceptValue = ['input', 'textarea', 'option', 'select']
 
-export default (tag, attrtype, attr) => {
+export default (tag, attr,attrtype) => {
   return (
     (attr === 'value' && acceptValue.includes(tag) && attrtype !== 'button') ||
     (attr === 'selected' && tag === 'option') ||
