@@ -1,11 +1,12 @@
 {
-    "version": "1.2.0",
+    "version": "1.2.1",
+    "type": "module",
     "publishConfig": {
-        "registry": "https://npm.pkg.github.com/"
+        "registry": "https://registry.npmjs.org/"
     },
     "types": "dist/index.d.ts",
-    "main": "dist/index.js",
-    "module": "dist/index.js",
+    "main": "dist/index.min.js",
+    "module": "dist/index.min.js",
     "name": "@masx200/dom-element-attribute-agent-proxy",
     "description": "基于proxy封装的对于dom元素的attribute的读写操作库",
     "scripts": {
@@ -22,9 +23,9 @@
     },
     "homepage": "https://github.com/masx200/dom-element-attribute-agent-proxy#readme",
     "devDependencies": {
-"serialize-javascript":"^2.1.2",
-"terser":"^4.4.2",
-"typescript":"^3.7.3",
+        "serialize-javascript": "^2.1.2",
+        "terser": "^4.4.2",
+        "typescript": "^3.7.3",
         "@typescript-eslint/eslint-plugin": "^2.2.0",
         "@typescript-eslint/parser": "^2.2.0",
         "eslint": "^6.4.0",
@@ -38,7 +39,6 @@
         "rollup-plugin-typescript": "^1.0.1",
         "rollup-plugin-typescript2": "^0.24.3",
         "tslib": "^1.10.0"
-        
     },
     "dependencies": {}
 }
