@@ -20,7 +20,7 @@ export class Attrhandler {
         Reflect.ownKeys(proto).forEach(k=>{
             let f=get(proto,k)
             if(typeof f=='function'){
-                set(this,k,f)
+                set(this,k,f.bind(this))
             }
         })
     }

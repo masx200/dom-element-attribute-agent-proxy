@@ -100,7 +100,7 @@ class Attrhandler {
         Reflect.ownKeys(proto).forEach(k => {
             let f = get(proto, k);
             if (typeof f == "function") {
-                set(this, k, f);
+                set(this, k, f.bind(this));
             }
         });
     }
@@ -203,11 +203,18 @@ _ele = new WeakMap;
 
 function createeleattragentreadwrite(ele) {
     asserthtmlelement(ele);
+    const cached = elementtoproxy.get(ele);
+    if (cached) {
+        return cached;
+    }
     var temp = Object.create(null);
     const handler = new Attrhandler(ele);
     const outputattrs = new Proxy(temp, handler);
+    elementtoproxy.set(ele, outputattrs);
     return outputattrs;
 }
+
+const elementtoproxy = new WeakMap;
 
 export default createeleattragentreadwrite;
 //# sourceMappingURL=index.js.map
