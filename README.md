@@ -17,7 +17,7 @@ cnpm install  --save https://github.com/masx200/dom-element-attribute-agent-prox
 # API
 
 ```typescript
-function createeleattr(ele: HTMLElement): object;
+declare function createeleattr(ele: HTMLElement): Record<string, any>;
 ```
 
 # 使用方法
@@ -25,7 +25,7 @@ function createeleattr(ele: HTMLElement): object;
 ```javascript
 import createeleattr from "@masx200/dom-element-attribute-agent-proxy";
 var element1 = document.querySelector(
-  "div.Popover.anim-scale-in.js-tagsearch-popover"
+    "div.Popover.anim-scale-in.js-tagsearch-popover"
 );
 var attribute1 = createeleattr(element1);
 attribute1.testarray = [1, "sssssssq"];
@@ -36,6 +36,16 @@ attribute1["data-tagsearch-ref"] = "master";
 console.log(Object.entries(attribute1));
 attribute1.class = new Set(["wwwwwwwww1", "sssssssq"]);
 ```
+
+# 设置`attributes`类型说明
+
+`style`属性支持类型为`string|Record<string,string>`
+
+`class`属性支持类型为`string|Array<string>|Set<string>`
+
+其他属性支持`Set<any>|Array<any>|string|Record<string,string>|Object`
+
+如果设置属性的值为类型`Object`,则将其用`JSON.stringify`转换成`string`类型
 
 # 更新 : 添加了对于 `input`元素中 `type="checkbox"` 的 `checked` 的读写操作,
 
