@@ -23,7 +23,7 @@
     },
     "homepage": "https://github.com/masx200/dom-element-attribute-agent-proxy#readme",
     "devDependencies": {
-"minimist":"1.2.3",
+        "minimist":"1.2.3",
         "@babel/plugin-proposal-class-properties": "^7.8.3",
         "@babel/plugin-proposal-nullish-coalescing-operator": "^7.8.3",
         "@babel/plugin-proposal-optional-catch-binding": "^7.8.3",
@@ -34,7 +34,7 @@
         "@rollup/plugin-node-resolve": "^7.1.1",
         "@typescript-eslint/eslint-plugin": "^2.22.0",
         "@typescript-eslint/parser": "^2.22.0",
-        "eslint": "^6.8.0",
+        "eslint": "^7.6.0",
         "eslint-config-prettier": "^6.10.0",
         "prettier": "^1.19.1",
         "rollup": "^2.0.2",
@@ -50,7 +50,7 @@
         "terser": "^4.6.6",
         "tslib": "^1.11.1",
         "typescript": "^3.9.7",
-"serialize-javascript":"4.0.0",
+        "serialize-javascript":"4.0.0",
         "@babel/core": "^7.8.7"
     },
     "dependencies": {}
