@@ -53,7 +53,7 @@ import createeleattr from "../dist/index.min.js";
 
     inputattribute.qqqqqqqqqqqqqqqqqqqqq = {
         1: "wwwwwwwwwwww",
-        bbbbbbb: "wwwxxxxxxxxx"
+        bbbbbbb: "wwwxxxxxxxxx",
     };
     console.log(inputelement);
     console.log(Object.entries(inputattribute));
@@ -77,5 +77,5 @@ import createeleattr from "../dist/index.min.js";
     console.log(Object.getOwnPropertyDescriptors(attribute1));
 }
 [...document.all]
-    .map(e => [e, { ...createeleattr(e) }, e.outerHTML])
-    .forEach(a => console.log(a));
+    .map((e) => [e, { ...createeleattr(e) }, e.outerHTML])
+    .forEach((a) => console.log(a));

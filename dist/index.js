@@ -6,9 +6,13 @@ function asserthtmlelement(ele) {
     }
 }
 
-const acceptValue = [ "input", "textarea", "option", "select" ];
+const acceptValue = ["input", "textarea", "option", "select"];
 
-var mustUseDomProp = (tag, attr, attrtype) => attr === "value" && acceptValue.includes(tag) && attrtype !== "button" || attr === "selected" && tag === "option" || attr === "checked" && tag === "input" || attr === "muted" && tag === "video";
+var mustUseDomProp = (tag, attr, attrtype) =>
+    (attr === "value" && acceptValue.includes(tag) && attrtype !== "button") ||
+    (attr === "selected" && tag === "option") ||
+    (attr === "checked" && tag === "input") ||
+    (attr === "muted" && tag === "video");
 
 function isArray(a) {
     return Array.isArray(a);
@@ -34,19 +38,24 @@ const String = window.String;
 
 const Reflect$1 = window.Reflect;
 
-const {get: get, set: set, ownKeys: ownKeys} = Reflect$1;
+const { get: get, set: set, ownKeys: ownKeys } = Reflect$1;
 
 const valuestring = "value";
 
-const isinputcheckbox = ele => "input" === geteletagname(ele) && (get(ele, "type") === "checkbox" || get(ele, "type") === "radio");
+const isinputcheckbox = (ele) =>
+    "input" === geteletagname(ele) &&
+    (get(ele, "type") === "checkbox" || get(ele, "type") === "radio");
 
 const hyphenateRE = /\B([A-Z])/g;
 
-const hyphenate = str => str.replace(hyphenateRE, "-$1").toLowerCase();
+const hyphenate = (str) => str.replace(hyphenateRE, "-$1").toLowerCase();
 
 function objtostylestring(obj) {
     obj = JSON.parse(JSON.stringify(obj));
-    const objentries = Object.entries(obj).map(([key, value]) => [ hyphenate(key).trim(), value ]);
+    const objentries = Object.entries(obj).map(([key, value]) => [
+        hyphenate(key).trim(),
+        value,
+    ]);
     return objentries.map(([key, value]) => key + ":" + value).join(";");
 }
 
@@ -68,27 +77,39 @@ function removeAttribute(ele, key) {
 
 function isinputtextortextarea(ele) {
     const tagname = geteletagname(ele);
-    return tagname === "textarea" || tagname === "select" || tagname === "input" && get(ele, "type") === "text";
+    return (
+        tagname === "textarea" ||
+        tagname === "select" ||
+        (tagname === "input" && get(ele, "type") === "text")
+    );
 }
 
 function hasAttribute(ele, key) {
     return ele.hasAttribute(key);
 }
 
-var __classPrivateFieldSet = undefined && undefined.__classPrivateFieldSet || function(receiver, privateMap, value) {
-    if (!privateMap.has(receiver)) {
-        throw new TypeError("attempted to set private field on non-instance");
-    }
-    privateMap.set(receiver, value);
-    return value;
-};
+var __classPrivateFieldSet =
+    (undefined && undefined.__classPrivateFieldSet) ||
+    function (receiver, privateMap, value) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError(
+                "attempted to set private field on non-instance"
+            );
+        }
+        privateMap.set(receiver, value);
+        return value;
+    };
 
-var __classPrivateFieldGet = undefined && undefined.__classPrivateFieldGet || function(receiver, privateMap) {
-    if (!privateMap.has(receiver)) {
-        throw new TypeError("attempted to get private field on non-instance");
-    }
-    return privateMap.get(receiver);
-};
+var __classPrivateFieldGet =
+    (undefined && undefined.__classPrivateFieldGet) ||
+    function (receiver, privateMap) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError(
+                "attempted to get private field on non-instance"
+            );
+        }
+        return privateMap.get(receiver);
+    };
 
 var _ele;
 
@@ -97,7 +118,7 @@ class Attrhandler {
         _ele.set(this, void 0);
         __classPrivateFieldSet(this, _ele, ele);
         const proto = Attrhandler.prototype;
-        Reflect.ownKeys(proto).forEach(k => {
+        Reflect.ownKeys(proto).forEach((k) => {
             let f = get(proto, k);
             if (typeof f == "function") {
                 set(this, k, f.bind(this));
@@ -108,7 +129,17 @@ class Attrhandler {
         const ele = __classPrivateFieldGet(this, _ele);
         const isinputtextortextareaflag = isinputtextortextarea(ele);
         const keys = attributesownkeys(ele);
-        return Array.from(new Set([ ...keys, isinputcheckbox(ele) ? "checked" : undefined, isinputtextortextareaflag ? valuestring : undefined ].flat(Infinity).filter(a => !!a)));
+        return Array.from(
+            new Set(
+                [
+                    ...keys,
+                    isinputcheckbox(ele) ? "checked" : undefined,
+                    isinputtextortextareaflag ? valuestring : undefined,
+                ]
+                    .flat(Infinity)
+                    .filter((a) => !!a)
+            )
+        );
     }
     get(_target, key) {
         const ele = __classPrivateFieldGet(this, _ele);
@@ -141,11 +172,19 @@ class Attrhandler {
         if (mustUseDomProp(geteletagname(ele), String(key), get(ele, "type"))) {
             return set(ele, String(key), v);
         } else if (key === "style") {
-            const csstext = isstring(v) ? v : isobject(v) ? objtostylestring(v) : String(v);
+            const csstext = isstring(v)
+                ? v
+                : isobject(v)
+                ? objtostylestring(v)
+                : String(v);
             set(get(ele, "style"), "cssText", csstext.trim());
             return true;
         } else if (key === "class" && isobject(v)) {
-            const classtext = isArray(v) ? v.join(" ") : isSet(v) ? [ ...v ].join(" ") : String(v);
+            const classtext = isArray(v)
+                ? v.join(" ")
+                : isSet(v)
+                ? [...v].join(" ")
+                : String(v);
             setattribute(ele, String(key), classtext);
             return true;
         } else {
@@ -154,13 +193,17 @@ class Attrhandler {
                 return true;
             }
             if (isSet(v)) {
-                setattribute(ele, String(key), JSON.stringify([ ...v ]));
+                setattribute(ele, String(key), JSON.stringify([...v]));
                 return true;
             } else {
                 if (v === true) {
                     v = "";
                 }
-                setattribute(ele, String(key), isobject(v) ? JSON.stringify(v) : String(v));
+                setattribute(
+                    ele,
+                    String(key),
+                    isobject(v) ? JSON.stringify(v) : String(v)
+                );
                 return true;
             }
         }
@@ -182,13 +225,13 @@ class Attrhandler {
         const otherdescipter = {
             enumerable: true,
             configurable: true,
-            writable: true
+            writable: true,
         };
         const myvalue = getattribute(ele, String(key));
         if (typeof myvalue !== "undefined") {
             return {
                 value: myvalue,
-                ...otherdescipter
+                ...otherdescipter,
             };
         } else {
             return;
@@ -199,7 +242,7 @@ class Attrhandler {
     }
 }
 
-_ele = new WeakMap;
+_ele = new WeakMap();
 
 function createeleattragentreadwrite(ele) {
     asserthtmlelement(ele);
@@ -214,7 +257,7 @@ function createeleattragentreadwrite(ele) {
     return outputattrs;
 }
 
-const elementtoproxy = new WeakMap;
+const elementtoproxy = new WeakMap();
 
 export default createeleattragentreadwrite;
 //# sourceMappingURL=index.js.map

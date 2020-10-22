@@ -5,7 +5,7 @@ export function objtostylestring(obj: object): string {
     obj = JSON.parse(JSON.stringify(obj));
     const objentries = Object.entries(obj).map(([key, value]) => [
         hyphenate(key).trim(),
-        value
+        value,
     ]);
     return objentries.map(([key, value]) => key + ":" + value).join(";");
 }

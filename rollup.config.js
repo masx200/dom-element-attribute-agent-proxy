@@ -16,17 +16,17 @@ const babelenvplugin = babel({
                     "last 1 edge version",
                     "last 1 safari version",
                     "last 1 chrome version",
-                    "last 1 firefox version"
-                ]
-            }
-        ]
+                    "last 1 firefox version",
+                ],
+            },
+        ],
     ],
     plugins: [
         "@babel/plugin-proposal-optional-catch-binding",
         "@babel/plugin-proposal-class-properties",
         "@babel/plugin-syntax-nullish-coalescing-operator",
-        "@babel/plugin-proposal-nullish-coalescing-operator"
-    ]
+        "@babel/plugin-proposal-nullish-coalescing-operator",
+    ],
 });
 const beautifyplugin = terser({
     compress: false,
@@ -34,24 +34,24 @@ const beautifyplugin = terser({
     mangle: false,
     output: {
         comments: !1,
-        beautify: true
-    }
+        beautify: true,
+    },
 });
 const tersercompressplugin = terser({
     sourcemap: true,
     toplevel: true,
     output: {
         comments: !1,
-        ascii_only: !0
+        ascii_only: !0,
     },
     compress: {
         toplevel: true,
         unused: true,
         drop_console: true,
         drop_debugger: true,
-        pure_funcs: ["console.log"]
+        pure_funcs: ["console.log"],
     },
-    mangle: { properties: false }
+    mangle: { properties: false },
 });
 export default [
     {
@@ -60,10 +60,10 @@ export default [
             {
                 file: "./dist/index.js",
                 format: "esm",
-                sourcemap: true
-            }
+                sourcemap: true,
+            },
         ],
-        plugins: [json(), resolve(), commonjs(), typescript(), beautifyplugin]
+        plugins: [json(), resolve(), commonjs(), typescript(), beautifyplugin],
     },
     {
         input: "./dist/index.js",
@@ -71,15 +71,15 @@ export default [
             {
                 file: "./dist/index.min.js",
                 format: "esm",
-                sourcemap: true
-            }
+                sourcemap: true,
+            },
         ],
         plugins: [
             babelenvplugin,
             resolve(),
             commonjs(),
             json(),
-            tersercompressplugin
-        ]
-    }
+            tersercompressplugin,
+        ],
+    },
 ];

@@ -12,35 +12,39 @@ import { setattribute } from "./setattribute";
 import { removeAttribute } from "./removeAttribute";
 import { isinputtextortextarea } from "./isinputtextortextarea";
 import { hasAttribute } from "./hasAttribute";
-import { valuestring, String, get, set } from './util';
+import { valuestring, String, get, set } from "./util";
 export class Attrhandler {
     constructor(ele: Element) {
         this.#ele = ele;
-        const proto=Attrhandler.prototype
-        Reflect.ownKeys(proto).forEach(k=>{
-            let f=get(proto,k)
-            if(typeof f=='function'){
-                set(this,k,f.bind(this))
+        const proto = Attrhandler.prototype;
+        Reflect.ownKeys(proto).forEach((k) => {
+            let f = get(proto, k);
+            if (typeof f == "function") {
+                set(this, k, f.bind(this));
             }
-        })
+        });
     }
     #ele: Element;
-    ownKeys( /* target */) {
-        const ele=this.#ele
+    ownKeys(/* target */) {
+        const ele = this.#ele;
         const isinputtextortextareaflag = isinputtextortextarea(ele);
         const keys = attributesownkeys(ele);
-        return Array.from(new Set([
-            ...keys,
-            isinputcheckbox(ele) ? "checked" : undefined,
-            isinputtextortextareaflag ? valuestring : undefined
-            //Array.from(new Set([...keys, valuestring]))
-            //  : keys
-        ]
-            .flat(Infinity)
-            .filter(a => !!a)));
+        return Array.from(
+            new Set(
+                [
+                    ...keys,
+                    isinputcheckbox(ele) ? "checked" : undefined,
+                    isinputtextortextareaflag ? valuestring : undefined,
+                    //Array.from(new Set([...keys, valuestring]))
+                    //  : keys
+                ]
+                    .flat(Infinity)
+                    .filter((a) => !!a)
+            )
+        );
     }
     get(_target: any, key: string) {
-        const ele=this.#ele
+        const ele = this.#ele;
         //   const isinputtextortextareaflag = isinputtextortextarea(ele);
         //   if (isinputcheckbox(ele) && key === "checked") {
         //     return get(ele, "checked");
@@ -50,8 +54,7 @@ export class Attrhandler {
         //   }
         if (mustUseDomProp(geteletagname(ele), String(key), get(ele, "type"))) {
             return get(ele, String(key));
-        }
-        else {
+        } else {
             const v = getattribute(ele, String(key));
             // ele.getAttribute(String(key));
             //   console.log(v);
@@ -66,17 +69,14 @@ export class Attrhandler {
             if (isstring(v)) {
                 try {
                     return JSON.parse(String(v)); // v
-                }
-                catch (error) {
+                } catch (error) {
                     return v;
                 }
-            }
-            else
-                return;
+            } else return;
         }
     }
     set(_t: any, key: string, v: any) {
-        const ele=this.#ele
+        const ele = this.#ele;
         //   const isinputtextortextareaflag = isinputtextortextarea(ele);
         //不允许设置属性为函数
         if ("function" === typeof v) {
@@ -97,13 +97,12 @@ export class Attrhandler {
   }  */
         if (mustUseDomProp(geteletagname(ele), String(key), get(ele, "type"))) {
             return set(ele, String(key), v);
-        }
-        else if (key === "style") {
+        } else if (key === "style") {
             const csstext = isstring(v)
                 ? v
                 : isobject(v)
-                    ? objtostylestring(v)
-                    : String(v);
+                ? objtostylestring(v)
+                : String(v);
             //设置csstext可以删除注释
             set(get(ele, "style"), "cssText", csstext.trim());
             // ele.style.cssText = csstext.trim();
@@ -117,13 +116,12 @@ export class Attrhandler {
       isstring(v) ? v : isobject(v) ? objtostylestring(v) : String(v)
     ); */
             return true;
-        }
-        else if (key === "class" && isobject(v)) {
+        } else if (key === "class" && isobject(v)) {
             const classtext = isArray(v)
                 ? v.join(" ")
                 : isSet(v)
-                    ? [...v].join(" ")
-                    : String(v);
+                ? [...v].join(" ")
+                : String(v);
             setattribute(ele, String(key), classtext);
             return true;
             /*  if (isArray(v)) {
@@ -134,8 +132,7 @@ export class Attrhandler {
       setattribute(ele, String(key), String(v));
     }*/
             //
-        }
-        else {
+        } else {
             /* 如果为false则删除attribute */
             if (false === v || v === null || v === undefined) {
                 removeAttribute(ele, String(key));
@@ -145,12 +142,15 @@ export class Attrhandler {
             if (isSet(v)) {
                 setattribute(ele, String(key), JSON.stringify([...v]));
                 return true;
-            }
-            else {
+            } else {
                 if (v === true) {
                     v = "";
                 }
-                setattribute(ele, String(key), isobject(v) ? JSON.stringify(v) : String(v));
+                setattribute(
+                    ele,
+                    String(key),
+                    isobject(v) ? JSON.stringify(v) : String(v)
+                );
                 /*  ele.setAttribute(
       String(key),
       isobject(v) ? JSON.stringify(v) : String(v)
@@ -161,13 +161,13 @@ export class Attrhandler {
         //   return true;
     }
     deleteProperty(_t: any, k: string) {
-        const ele=this.#ele
+        const ele = this.#ele;
         removeAttribute(ele, String(k));
         // ele.removeAttribute(String(k));
         return true;
     }
     has(_target: any, key: string) {
-        const ele=this.#ele
+        const ele = this.#ele;
         return hasAttribute(ele, String(key));
         // return ownKeys(outputattrs).includes(key);
         /*
@@ -187,21 +187,20 @@ const isinputtextortextareaflag = isinputtextortextarea(ele);
         return false;
     }
     getOwnPropertyDescriptor(_target: any, key: string) {
-        const ele=this.#ele
+        const ele = this.#ele;
         const otherdescipter = {
             enumerable: true,
             configurable: true,
-            writable: true
+            writable: true,
         };
         // const myvalue: any = get(outputattrs, key);
         const myvalue = getattribute(ele, String(key));
         if (typeof myvalue !== "undefined") {
             return {
                 value: myvalue,
-                ...otherdescipter
+                ...otherdescipter,
             };
-        }
-        else {
+        } else {
             return;
         }
         /*  if (isinputtextortextareaflag && key === valuestring) {
