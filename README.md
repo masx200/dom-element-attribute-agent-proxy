@@ -35,6 +35,10 @@ console.log(attribute1.class);
 attribute1["data-tagsearch-ref"] = "master";
 console.log(Object.entries(attribute1));
 attribute1.class = new Set(["wwwwwwwww1", "sssssssq"]);
+ attribute1.style = { display: "block", width: "500px" };
+ console.log( attribute1.style)
+   attribute1.style = "display:block;width:500px;height:100px";
+ console.log( attribute1.style)
 ```
 
 # 设置`attributes`类型说明
